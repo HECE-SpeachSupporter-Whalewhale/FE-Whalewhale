@@ -1,0 +1,178 @@
+.ViewMemoriesPage-vi{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #ffffff;
+}
+
+.Header-vi {
+    /* Frame 13 */
+
+    /* Auto layout */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+    padding: 0 20px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    
+    
+}
+
+.backbutton-vi {
+/* Frame 94 */
+    
+    height:100%;
+    flex: none;
+    justify-content: top;
+    order: 0;
+    flex-grow: 0;
+    background-color: #FFFFFF;
+    border: none;
+    cursor: pointer;
+  }
+  
+  
+
+.login-div-vi {
+
+    /* Frame 11 */
+
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 10px;
+    margin-right: 5%;
+    width: 200px;
+    height: 70px;
+    margin-top: 30px;
+
+    /* Inside auto layout */
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+}
+
+/* Frame 85 */
+.login-logo-vi {
+    width: 30px;
+    height: 30px;
+    background: #F1F4F5;
+    border-radius: 1000px;
+    margin-left: 60%;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    
+  }
+  
+  
+.login-button-vi{
+    /* 로그인하기 */
+    
+    width: 90px;
+    height: 30px;
+    border: none;
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 18px;
+    /* identical to box height */
+    display: flex;
+    align-items: center;
+    text-align: center;
+    background-color: #FFFFFF;
+    color: #2F75DE;
+
+
+    /* Inside auto layout */
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+
+}
+
+.main-vi {
+    /* Frame 89 */
+
+    /* Auto layout */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px 320px;
+    gap: 20px;
+
+    position: absolute;
+    width: 90%;
+    height: 90%;
+    top: 22%;
+
+
+}
+
+
+
+.main-div-vi {
+    /* Frame 42 */
+
+    /* Auto layout */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0px;
+    gap: 10px;
+    width: 100%;
+    height: 703px;
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+
+}
+
+
+.search-div-vi {
+    /* Frame 40 */
+    /* Auto layout */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 20px;
+    
+    gap: 0px;
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+.search-input-vi {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px 16px;
+    gap: 5px;
+    width: 50%;
+    
+    background: #F2F2F2;
+    border-radius: 8px;
+    border: none;
+    flex: none;
+    order: 0;
+    align-self: center;
+    flex-grow: 0;
+}
