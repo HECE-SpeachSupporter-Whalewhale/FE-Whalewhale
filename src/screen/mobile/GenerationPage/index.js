@@ -28,8 +28,8 @@ const GenerationPage = () => {
           <span className="generation-edit-button" onClick={handleEdit}>&#9998;</span>
         </div>
       </header>
-      <div className="generation-content">
-        <div className="generation-content-body">
+      <div className="generation-content-frame">
+        <div className="generation-content">
           <div className="generation-input-group">
             <label className="generation-label">제목</label>
             <input type="text" value={title} readOnly className="generation-input title-box"/>
@@ -39,7 +39,7 @@ const GenerationPage = () => {
             <textarea value={content} readOnly className="generation-textarea frame"></textarea>
           </div>
           <div className="generation-input-group generation-time-inputs">
-            <label className="generation-label">시간</label>
+            <label className="generation-label"></label>
             <div className="generation-time-inputs-wrapper">
               <input type="number" placeholder="예시) 1" className="generation-time-input" />
               <span className="generation-time-span">분</span>
