@@ -3,9 +3,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './style.css';
 import logoImage from '../../../images/logo.png';
+
 const HelpWithSpeechPagePc = () => {
-
-
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [minutes, setMinutes] = useState('');
@@ -19,12 +18,16 @@ const HelpWithSpeechPagePc = () => {
     k4: ''
   });
 
+  const [showCautionNotice, setShowCautionNotice] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
+
   const navigate = useNavigate();
 
   const handleLogoClick = () => {
     navigate('/');
     window.location.reload();
   };
+
   const handleCreateSpeech = () => {
     if (title && content) {
       if (content.length < 150) {
@@ -39,6 +42,7 @@ const HelpWithSpeechPagePc = () => {
         const wordCount = content.trim().split(/\s+/).length;
         estimatedDuration = Math.ceil((wordCount / wordsPerMinute) * 60);
       }
+      setShowCautionNotice(true);
     }
   };
 
@@ -65,19 +69,25 @@ const HelpWithSpeechPagePc = () => {
     }
   };
 
+  const handleCheckmarkClick = () => {
+    setIsModalOpen(true); // 모달 열기
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false); // 모달 닫기
+  };
 
   return (
-
     <div className="he-page-container">
       <div className="he-header">
-      <div className="he-logo-container-Pc">
+        <div className="he-logo-container-Pc">
           <img src={logoImage} alt="고래고래" className="he-logo-Pc" onClick={handleLogoClick} />
         </div>
-        <span className="he-header-title">위스의 도움받기</span>
       </div>
       <div className="he-page-content-frame">
         <div className="he-page-content">
           <div className="he-input-group">
+          <span className="he-header-title">위스의 도움받기</span>
             <label className="he-label">제목</label>
             <input
               type="text"
@@ -150,13 +160,13 @@ const HelpWithSpeechPagePc = () => {
           </div>
           <div className="he-input-group">
             <div className="he-time-checkbox-group">
-            <label className="he-label">시간 설정</label>
-            <input
-              type="checkbox"
-              className="he-speech-checkbox"
-              checked={isChecked}
-              onChange={handleCheckboxChange}
-            />
+              <label className="he-label">시간 설정</label>
+              <input
+                type="checkbox"
+                className="he-speech-checkbox"
+                checked={isChecked}
+                onChange={handleCheckboxChange}
+              />
             </div>
             {isChecked && (
               <div className="he-time-inputs">
@@ -166,7 +176,7 @@ const HelpWithSpeechPagePc = () => {
                   className="he-time-input"
                   value={minutes}
                   onChange={(e) => setMinutes(e.target.value)}
-                  onKeydown={handleNumberInput}
+                  onKeyDown={handleNumberInput}
                   max={20}
                 />
                 <span className="he-time-span">분</span>
@@ -176,7 +186,7 @@ const HelpWithSpeechPagePc = () => {
                   className="he-time-input"
                   value={seconds}
                   onChange={(e) => setSeconds(e.target.value)}
-                  onKeydown={handleNumberInput}
+                  onKeyDown={handleNumberInput}
                   max={60}
                 />
                 <span className="he-time-span">초</span>
@@ -195,6 +205,33 @@ const HelpWithSpeechPagePc = () => {
           </button>
         </div>
       </div>
+      {showCautionNotice && (
+        <div className="he-caution-notice">
+          <div className="he-caution-notice-content">
+            주의사항: 본문 내용이 최소 150자 이상이어야 합니다. 시간을 설정할 경우, 박스를 체크해야 합니다.
+          </div>
+        </div>
+      )}
+      {/* 오른쪽 상단에 툴팁과 체크마크 추가 */}
+      <div className="he-tooltip-container" onClick={handleCheckmarkClick}>
+        <span className="he-checkmark">✓</span>
+        <span className="he-tooltiptext">주의사항 확인 필요!</span>
+      </div>
+
+      {/* 모달 */}
+      {isModalOpen && (
+        <div className="he-modal-overlay" onClick={handleCloseModal}>
+          <div className="he-modal-content" onClick={(e) => e.stopPropagation()}>
+            <h2>주의사항</h2>
+            <p>제목은 최대 10자 이상 적어주세요.</p>
+            <p>본문은 150자 이상은 기본으로 작성하셔야합니다.(최대1000자)</p>
+            <p>키워드는 각각 5글자까지 적을 수 있고, 4칸 다 적어주셔야합니다.</p>
+            <p>제목은 최대 10자 이상 적어주세요.</p>
+            <p>시간을 따로 설정을 안하시면 기본시간(@@분)으로 진행됩니다.</p>
+            <button className="he-modal-close-button" onClick={handleCloseModal}>닫기</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
