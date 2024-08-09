@@ -1,0 +1,11 @@
+/* PC 전용 스타일 */
+body, html {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.app-container {
+  width: 100%;
+  margin: 0;
+}

@@ -1,3 +1,19 @@
+<<<<<<< HEAD
+21312401    
+ㅏㅏㅏ참
+=======
+2131240
+2171548 구민선
+
+2271417 양정우
+
+2131240 성규현
+2171548 2171548
+
++11
+연습연습
+develop
+>>>>>>> gms
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
