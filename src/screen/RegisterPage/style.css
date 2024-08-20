@@ -1,0 +1,172 @@
+.register-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #fff;
+}
+
+.register-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.register-logo-container {
+  cursor: pointer;
+}
+
+.register-logo-image {
+  height: 40px;
+  width: auto;
+}
+
+.register-login-button {
+  padding: 8px 16px;
+  background-color: #0277BF;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.register-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  padding: 40px 20px;
+  margin-top: 50px; /* 모바일 화면에서 콘텐츠를 아래로 내림 */
+}
+
+.register-title {
+  font-size: 30px;
+  margin-bottom: 40px;
+}
+
+.register-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.register-input-field {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.register-email-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.register-email-input {
+  flex: 2;
+  max-width: 60%;
+}
+
+.register-at-symbol {
+  margin: 0 5px;
+  font-size: 14px;
+}
+
+.register-email-select,
+.register-email-custom-input {
+  flex: 1;
+  max-width: 40%;
+}
+
+.register-verification-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 8px 0;
+}
+
+.register-verification-input {
+  flex: 2;
+}
+
+.register-verify-button {
+  flex: 1;
+  margin-left: 10px;
+  padding: 10px;
+  background-color: #0277BF;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.register-submit-button {
+  width: 100%;
+  padding: 10px;
+  margin: 20px 0;
+  background-color: #0277BF;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.register-error-message {
+  color: red;
+  font-size: 12px;
+  margin: 2px 0 8px 0;
+  text-align: left;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .register-header {
+    padding: 15px 40px;
+  }
+
+  .register-logo-image {
+    height: 50px;
+  }
+
+  .register-login-button {
+    font-size: 16px;
+  }
+
+  .register-content {
+    max-width: 500px;
+    padding: 60px 40px;
+    margin-top: 0; /* 웹 화면에서는 원래 위치로 복원 */
+  }
+
+  .register-title {
+    font-size: 32px;
+  }
+
+  .register-input-field,
+  .register-verify-button,
+  .register-submit-button {
+    font-size: 16px;
+    padding: 12px;
+  }
+
+  .register-at-symbol {
+    font-size: 16px;
+  }
+
+  .register-error-message {
+    font-size: 14px;
+  }
+}
