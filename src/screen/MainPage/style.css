@@ -1,0 +1,165 @@
+/* 메인 페이지 컨테이너 스타일 */
+.ma-main-page-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #ffffff;
+}
+
+/* 헤더 스타일 */
+.ma-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  padding: 0 20px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 5px solid #87CEEB;
+}
+
+/* 로고 컨테이너 스타일 */
+.ma-logo-container {
+  display: flex;
+  align-items: center;
+}
+
+/* 로고 스타일 */
+.ma-logo {
+  height: 60px;
+  cursor: pointer;
+}
+
+/* 인증 버튼 컨테이너 스타일 */
+.ma-auth-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+/* 인증 버튼 스타일 */
+.ma-auth-button {
+  font-size: 1em;
+  background-color: #0277BF;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+/* 콘텐츠 프레임 스타일 */
+.ma-content-frame {
+  flex-grow: 1;
+  width: 100%;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 콘텐츠 스타일 */
+.ma-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  max-width: 800px;
+  gap: 40px;
+  padding: 60px 40px;
+}
+
+/* 이미지 컨테이너 스타일 */
+.ma-image-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 이미지 스타일 */
+.ma-image {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
+  position: relative;
+  top: -20px;
+}
+
+/* 버튼 컨테이너 스타일 */
+.ma-button-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 800px;
+}
+
+/* 메인 버튼 스타일 */
+.ma-main-button {
+  font-size: 1em;
+  background-color: #0277BF;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 15px 20px;
+  cursor: pointer;
+  width: 30%;
+  max-width: 250px;
+}
+
+/* 메인 버튼 호버 스타일 */
+.ma-main-button:hover {
+  background-color: #0056b3;
+}
+
+/* 반응형 스타일 - 모바일 */
+@media (max-width: 768px) {
+  /* 헤더 높이 조정 */
+  .ma-header {
+    height: 60px;
+  }
+
+  /* 로고 크기 조정 */
+  .ma-logo {
+    height: 40px;
+  }
+
+  /* 인증 버튼 스타일 조정 */
+  .ma-auth-button {
+    font-size: 0.9em;
+    padding: 8px 16px;
+  }
+
+  /* 콘텐츠 패딩 및 간격 조정 */
+  .ma-content {
+    padding: 40px 20px;
+    gap: 30px;
+  }
+
+  /* 이미지 크기 조정 */
+  .ma-image {
+    max-width: 300px;
+    position: relative;
+    top: -50px;
+  }
+
+  /* 버튼 컨테이너 스타일 변경 */
+  .ma-button-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  /* 메인 버튼 스타일 조정 */
+  .ma-main-button {
+    width: 100%;
+    max-width: none;
+    font-size: 0.9em;
+    padding: 12px 16px;
+  }
+}

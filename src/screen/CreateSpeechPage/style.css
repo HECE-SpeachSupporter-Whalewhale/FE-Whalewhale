@@ -1,0 +1,276 @@
+/* CreateSpeechPage/style.css */
+
+/* 전체 컨테이너 스타일 */
+.cr-create-speech-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #ffffff;
+}
+
+/* 헤더 스타일 */
+.cr-create-speech-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.cr-create-speech-back-button {
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.cr-create-speech-header-title {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+/* 로그인 버튼 스타일 */
+.cr-create-speech-login-button {
+  padding: 8px 16px;
+  background-color: #007BFF;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+/* 콘텐츠 영역 스타일 */
+.cr-create-speech-content-frame {
+  flex-grow: 1;
+  padding: 24px;
+}
+
+.cr-create-speech-content {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* 입력 필드 그룹 스타일 */
+.cr-create-speech-input-group {
+  width: 100%;
+}
+
+.cr-create-speech-label {
+  display: block;
+  margin-bottom: 12px;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.cr-create-speech-input,
+.cr-create-speech-textarea {
+  width: 100%;
+  padding: 14px;
+  font-size: 1em;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-sizing: border-box;
+  background-color: #f8f9fa;
+}
+
+.cr-create-speech-textarea {
+  height: 180px;
+  resize: vertical;
+}
+
+/* 시간 설정 스타일 */
+.cr-create-speech-time-setting {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.cr-create-speech-checkbox {
+  margin-right: 12px;
+  width: 20px;
+  height: 20px;
+}
+
+.cr-create-speech-time-label {
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.cr-create-speech-time-inputs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.cr-create-speech-time-input {
+  flex: 1;
+  min-width: 0;
+  padding: 12px;
+  font-size: 0.9em;
+  text-align: center;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+}
+
+.cr-create-speech-time-span {
+  font-size: 0.9em;
+  padding: 0 5px;
+}
+
+/* 구분선 스타일 */
+.cr-create-speech-divider {
+  width: 100%;
+  border: none;
+  border-top: 1px solid #e0e0e0;
+  margin: 28px 0;
+}
+
+/* 주의사항 컨테이너 스타일 */
+.cr-create-speech-notice-container {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.cr-create-speech-notice-title {
+  font-size: 1em;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.cr-create-speech-notice {
+  font-size: 0.9em;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* 생성 버튼 스타일 */
+.cr-create-speech-button {
+  width: 100%;
+  padding: 16px;
+  font-size: 1.1em;
+  cursor: pointer;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  text-align: center;
+  margin-top: 28px;
+}
+
+/* 반응형 스타일 */
+@media (min-width: 768px) {
+  .cr-create-speech-content-frame {
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .cr-create-speech-content {
+    max-width: 1000px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+  }
+
+  .cr-create-speech-input-group {
+    width: 100%;
+  }
+
+  .cr-create-speech-input,
+  .cr-create-speech-textarea {
+    padding: 16px;
+    font-size: 1.1em;
+  }
+
+  .cr-create-speech-textarea {
+    height: 300px;
+  }
+
+  .cr-create-speech-time-setting {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .cr-create-speech-time-inputs {
+    justify-content: flex-start;
+    gap: 10px;
+  }
+
+  .cr-create-speech-time-input {
+    width: 400px;
+    padding: 16px;
+    font-size: 1.1em;
+  }
+
+  .cr-create-speech-time-span {
+    font-size: 1.1em;
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+
+  .cr-create-speech-notice-container {
+    width: 100%;
+    padding: 24px;
+  }
+
+  .cr-create-speech-notice-title {
+    font-size: 1.1em;
+  }
+
+  .cr-create-speech-notice {
+    font-size: 1em;
+  }
+
+  .cr-create-speech-button {
+    width: 100%;
+    padding: 16px;
+    font-size: 1.2em;
+    margin-top: 30px;
+  }
+}
+
+@media (max-width: 767px) {
+  .cr-create-speech-content-frame {
+    padding: 16px;
+  }
+
+  .cr-create-speech-content {
+    gap: 24px;
+  }
+
+  .cr-create-speech-input,
+  .cr-create-speech-textarea,
+  .cr-create-speech-button {
+    font-size: 0.9em;
+  }
+
+  .cr-create-speech-time-inputs {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .cr-create-speech-time-input {
+    width: calc(50% - 20px);
+    padding: 10px;
+  }
+
+  .cr-create-speech-time-span {
+    width: 40px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 400px) {
+  .cr-create-speech-time-input {
+    width: calc(50% - 15px);
+    padding: 8px;
+  }
+}

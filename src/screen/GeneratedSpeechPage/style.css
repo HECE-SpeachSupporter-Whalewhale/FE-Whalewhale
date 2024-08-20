@@ -1,0 +1,115 @@
+.modal-overlay-ge {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content-ge {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 300px;
+  text-align: center;
+  position: relative;
+}
+
+.modal-close-ge {
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  color: #666;
+}
+
+.modal-title-ge {
+  margin-bottom: 20px;
+  font-size: 1.2em;
+  color: #333;
+}
+
+.gif-box-ge {
+  width: 80%;
+  height: 160px;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.whale-gif-ge {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.generated-title-ge,
+.confirmation-text-ge {
+  font-size: 1em;
+  margin: 12px 0;
+  color: #333;
+  text-align: center;
+}
+
+.modal-button-ge {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 20px;
+  margin-top: 12px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1em;
+  transition: background-color 0.3s;
+}
+
+.modal-button-ge:hover {
+  background-color: #0056b3;
+}
+
+.modal-button-secondary-ge {
+  background-color: #28a745;
+}
+
+.modal-button-secondary-ge:hover {
+  background-color: #218838;
+}
+
+@media (min-width: 768px) {
+  .modal-content-ge {
+    max-width: 400px;
+    padding: 30px;
+  }
+
+  .modal-title-ge {
+    font-size: 1.4em;
+  }
+
+  .gif-box-ge {
+    height: 200px;
+  }
+
+  .generated-title-ge,
+  .confirmation-text-ge {
+    font-size: 1.1em;
+  }
+
+  .modal-button-ge {
+    font-size: 1.1em;
+    padding: 14px 24px;
+  }
+}

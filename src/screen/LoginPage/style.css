@@ -1,0 +1,154 @@
+.log-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #fff;
+}
+
+.log-left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+}
+
+.log-logo-container {
+  cursor: pointer;
+  text-align: center;
+}
+
+.log-logo {
+  width: auto;
+  margin-bottom: 20px;
+}
+
+.mobile-logo {
+  height: 150px;
+}
+
+.web-logo {
+  display: none;
+}
+
+.log-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+}
+
+.log-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 300px;
+}
+
+.log-title {
+  font-size: 1.5em;
+  margin-bottom: 20px;
+}
+
+.web-only {
+  display: none;
+}
+
+.log-input-field {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1em;
+  box-sizing: border-box;
+}
+
+.log-error-message {
+  color: red;
+  font-size: 0.8em;
+  margin-bottom: 12px;
+  text-align: left;
+  width: 100%;
+}
+
+.log-button {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  background-color: #0277BF;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.log-additional-options {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9em;
+  margin-bottom: 20px;
+}
+
+.log-auth-links {
+  display: flex;
+  gap: 5px;
+}
+
+.log-auth-links a {
+  color: #0277BF;
+  text-decoration: none;
+}
+
+.log-google-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #000;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1em;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+  .log-container {
+    flex-direction: row;
+  }
+
+  .log-left {
+    width: 50%;
+    height: 100vh;
+    background-color: #e5f4ff;
+  }
+
+  .mobile-logo {
+    display: none;
+  }
+
+  .web-logo {
+    display: block;
+    height: 200px;
+  }
+
+  .log-right {
+    width: 50%;
+    height: 100vh;
+  }
+
+  .log-form-container {
+    max-width: 400px;
+  }
+
+  .web-only {
+    display: block;
+  }
+}
