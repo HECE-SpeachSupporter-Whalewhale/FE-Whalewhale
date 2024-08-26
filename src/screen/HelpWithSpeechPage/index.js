@@ -64,13 +64,15 @@ const HelpWithSpeechPage = ({ showModal }) => {
   return (
     <div className="he-page-container">
       <div className="he-header">
-        <span className="he-back-button" onClick={() => navigate('/')}>
-          &#8592;
-        </span>
-        <span className="he-header-title">대본 수정</span>
+        <div className="he-header-left">
+          <span className="he-back-button" onClick={() => navigate('/')}>
+            &#8592;
+          </span>
+          <span className="he-header-title">대본 수정</span>
+        </div>
       </div>
-      <div className="he-page-content-frame">
-        <div className="he-page-content">
+      <div className="he-page-content">
+        <div className="he-form-container">
           <div className="he-input-group">
             <label className="he-label">제목</label>
             <input
@@ -144,13 +146,13 @@ const HelpWithSpeechPage = ({ showModal }) => {
           </div>
           <div className="he-input-group">
             <div className="he-time-checkbox-group">
-            <label className="he-label">시간 설정</label>
-            <input
-              type="checkbox"
-              className="he-speech-checkbox"
-              checked={isChecked}
-              onChange={handleCheckboxChange}
-            />
+              <label className="he-label">시간 설정</label>
+              <input
+                type="checkbox"
+                className="he-speech-checkbox"
+                checked={isChecked}
+                onChange={handleCheckboxChange}
+              />
             </div>
             {isChecked && (
               <div className="he-time-inputs">
@@ -160,7 +162,7 @@ const HelpWithSpeechPage = ({ showModal }) => {
                   className="he-time-input"
                   value={minutes}
                   onChange={(e) => setMinutes(e.target.value)}
-                  onKeydown={handleNumberInput}
+                  onKeyDown={handleNumberInput}
                   max={20}
                 />
                 <span className="he-time-span">분</span>
@@ -170,7 +172,7 @@ const HelpWithSpeechPage = ({ showModal }) => {
                   className="he-time-input"
                   value={seconds}
                   onChange={(e) => setSeconds(e.target.value)}
-                  onKeydown={handleNumberInput}
+                  onKeyDown={handleNumberInput}
                   max={60}
                 />
                 <span className="he-time-span">초</span>
