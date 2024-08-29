@@ -1,0 +1,152 @@
+.generation-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #ffffff;
+}
+
+.generation-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 60px;
+  padding: 0 20px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 5px solid #87CEEB;
+}
+
+.generation-back-button {
+  font-size: 1.5em;
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.generation-header-title {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.generation-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.generation-input-group {
+  margin-bottom: 20px;
+}
+
+.generation-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  font-size: 0.9em;
+  color: #333;
+}
+
+.generation-input[type="text"],
+.generation-textarea,
+.generation-time-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.generation-textarea {
+  height: 40vh;
+  resize: vertical;
+}
+
+.generation-time-inputs-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.generation-time-input {
+  flex: 1;
+  text-align: center;
+}
+
+.generation-time-span {
+  font-size: 1em;
+}
+
+.generation-button-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.generation-button {
+  flex: 1;
+  padding: 12px 0;
+  font-size: 1em;
+  cursor: pointer;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.generation-button:hover {
+  background-color: #0056b3;
+}
+
+@media (min-width: 768px) {
+
+  .generation-content {
+    padding: 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .generation-label {
+    font-size: 1.2em;
+    margin-bottom: 12px;
+  }
+
+  .generation-input[type="text"],
+  .generation-textarea,
+  .generation-time-input {
+    font-size: 1.3em;
+    padding: 15px;
+  }
+
+  .generation-textarea {
+    height: 50vh;
+  }
+
+  .generation-time-inputs-wrapper {
+    gap: 20px;
+  }
+
+  .generation-time-input {
+    font-size: 1.3em;
+    padding: 15px;
+  }
+
+  .generation-time-span {
+    font-size: 1.3em;
+  }
+
+  .generation-button-group {
+    margin-top: 30px;
+  }
+
+  .generation-button {
+    padding: 18px 0;
+    font-size: 1.3em;
+  }
+}
