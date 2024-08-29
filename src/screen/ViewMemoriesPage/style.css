@@ -1,105 +1,208 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css");
 
-.vi-view-memories-page {
-  position: relative; 
-  width: 100%;
-  height: 100vh;
-  margin: 0;
-  background-color: #ffffff;
-  box-sizing: border-box;
-  border-radius: 3px; /* 둥근 테두리 추가 */
-}   
-
-.vi-header {
-  display: flex;
-  flex-direction: row;
-  padding: 16px;
-  margin: 0 auto;
-  width: 91%;
-  height: 26px;  
-  background: #FFFFFF;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.08);
-  border-bottom: 3px solid #F2F2F2; /* 헤더 아래 테두리 추가 */
+.vi-ViewMemoriesPage{
+position: relative; 
+width: 100vw;
+height: 100vh;
+margin: 0;
+background-color: #ffffff;
+box-sizing: border-box;
+overflow: hidden;
 }
 
-.vi-header-div {
+
+.vi-header  {
+  /* Frame 13 */
+
+  /* Auto layout */
   display: flex;
-  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
-  padding: 0;
-  gap: 8px;
-  width: 90%;
-  height: 100%;
+  height: 80px;
+  padding: 0 20px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 5px solid #87CEEB;
+  
+  
 }
 
-.vi-back-button {
+
+.vi-backbutton {
+  
   display: flex;              
   justify-content: center;
   align-items: center;
-  width: 24px;               
-  height: 24px;              
-  padding: 3.5px;                
-  background: #FFFFFF;      
+  width: 30px;               
+  height: 30px;              
+  margin-left: -5px;                
+  background: #FFFFFF;
   border: none;              
   cursor: pointer;
+  background-image: url('data:image/svg+xml,%3Csvg%20width%3D%228%22%20height%3D%2214%22%20viewBox%3D%220%200%208%2014%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M7%201L1%207L7%2013%22%20stroke%3D%22black%22%2F%3E%3C%2Fsvg%3E');
+  background-size: 15px 20px; /* SVG 이미지의 크기 조정 */
+  background-repeat: no-repeat;
+  background-position: center;
+  
 }
 
-.vi-memory-view {
+
+.vi-Memory-title {
+  width: 311px;
+  height: 19px;
+  padding-left: 10px;
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 550;
+  font-size: 20px;
+  line-height: 19px;
+  /* identical to box height */
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  color: #191919;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 1;
+}
+  
+@media only screen and (min-width: 769px) {
+
+.vi-login-div {
+
+  /* Frame 11 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 10px;
+  margin-right: 5%;
+  width: 200px;
+  height: 70px;
+  margin-top: 30px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+/* Frame 85 */
+.vi-login-logo {
+  width: 30px;
+  height: 30px;
+  background: #F1F4F5;
+  border-radius: 1000px;
+  margin-left: 60%;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  
+}
+
+
+.vi-login-button{
+  /* 로그인하기 */
+  
+  width: 90px;
+  height: 30px;
+  border: none;
   font-family: 'Pretendard';
   font-style: normal;
   font-weight: 500;
-  font-size: 16px;
-  line-height: 19px;
-  text-align: flex-end;
-  width: 100%;
-  color: #191919;
+  font-size: 15px;
+  line-height: 18px;
+  /* identical to box height */
+  display: flex;
+  align-items: center;
+  text-align: center;
+  background-color: #FFFFFF;
+  color: #2F75DE;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+
 }
 
 .vi-main {
+  /* Frame 89 */
+  /* Auto layout */
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  padding: 15px;
-  position: relative;
-  width: 96%;
-  height: 100%;
-  top: 30px;
-  overflow-y: auto;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  gap: 20px;
+  width: 100%; /* 전체 너비 사용 */
+  height: calc(100vh - 100px); /* 헤더 높이를 뺀 나머지 높이 */
+  overflow-y: auto; /* 세로 스크롤 가능 */
+  
 }
 
-.vi-main-1 {
+
+
+.vi-main-div {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  gap: 15px;
-  width: 100%;
-  max-width: 1200px;
-  background-color: #ffffff;
-  position: relative;
-  z-index: 2;
-  padding-bottom: 5px;
+  justify-content: center;
+  width: 95%;
+  height: 96%;
+  gap: 5px;
+  margin-left: -20px;
+
+  
 }
+
 
 .vi-search {
+  /* Frame 40 */
+  /* Auto layout */
+  
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  width: 50%;
+  height: 60px;
+  gap: 0px;
+  
+}
+
+
+.vi-search-div{
+  display: flex;
+  position: center;
+  align-items:flex-start;
+  justify-content: flex-start ;
   width: 100%;
-  height: 40px;
-  padding: 0;
-  margin-right: 8px;
-  gap: 5px;
-  background-color: #F2F2F2;
-  border-radius: 8px;
+  height: 55px;
+
+  gap: 0px;
+  
+  margin-bottom: 10px;
+
 }
 
 .vi-search-input {
-  flex: 1;
-  padding: 5px 12px;
-  border: none;
+  flex: 1; /* 남은 공간을 차지하도록 설정 */
+  padding: 20px 16px;
   background: #F2F2F2;
-  border-radius: 8px;
+  border-radius: 8px 0px 0px 8px;
+  border: none;
+  width: 50%;
+  height: 3px;
+  
 }
 
 .vi-search-input::placeholder {
@@ -111,29 +214,29 @@
 }
 
 .vi-search-button {
-  width: 24px;
-  height: 24px;
+  width: 50px;
+  height: 43px;
   border: none;
-  background: none;
-  cursor: pointer;
-  margin-right: 15px;
+  border-radius: 0px 8px 8px 0px ;
+  background: #F2F2F2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 13px;
+  
 }
+
 
 .vi-list-button {
   display: flex;
   justify-content: center;
-  align-items: left;
-  padding-left: 75%;
+  align-items: right;
+  padding-left: 48%;
+  margin-top: 0px;
   gap: 0px;
+  flex-direction: row;
 }
 
-.vi-sort-label {
-  font-family: 'Pretendard';
-  font-weight: 400;
-  font-size: 15px;
-  color: #666666;
-  margin-right: 5px;
-}
 
 .vi-sort-button {
   display: flex;
@@ -145,6 +248,7 @@
   border: none;
   border-radius: 3px;
   background-color: #FFFFFF;
+
 }
 
 .vi-sort-icon {
@@ -152,16 +256,20 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: left;
-  gap: 0px;
-  width: 25px;
+  gap: 0.5px;
+  width: 15px;
   height: 40px;
   padding-right: 5px;
+  
 }
 
+
+
 .vi-line1, .vi-line2, .vi-line3 {
-  height: 1px;
+  height: 0.5px;
   background: #666666;
   margin: 2px 0;
+  align-items: left;
 }
 
 .vi-line1 {
@@ -172,30 +280,44 @@
   width: 12px;
 }
 
-.vi-line3 {
+.vi-line3  {
   width: 8px;
 }
+
+.vi-sort-label {
+  font-family: 'Pretendard';
+  font-weight: 400;
+  font-size: 15px;
+  color: #666666;
+  margin-right: 25px;
+  width: 60px;
+
+
+}
+
 
 .vi-button-list {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 7px;
   position: absolute;
-  top: 100%;
-  right: 10px;
+  margin-top: 20px;
   background: #FFFFFF;
   border-radius: 8px;
   padding: 8px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  height: 80px;
-  width: 30%;
+  height: 105px;
+  width: 120px;
   z-index: 1000;
 }
 
-.vi-button-item {
-  width: 115px;
-  height: 17px;
+
+
+
+.vi-button-item  {
+  width: 120px;
+  height: 25px;
   font-family: 'Pretendard' !important;
   font-weight: 400;
   font-size: 14px;
@@ -204,15 +326,17 @@
   background: none;
   cursor: pointer;
   display: flex;
-  align-items: flex-end;
+  flex-direction: row;
+  align-items: center;
   justify-content: left;
+  gap: 10%;
 }
 
-.vi-button-item .vi-check-icon {
+ .vi-check-icon {
   width: 16px;
   height: 16px;
   display: none;
-  margin-left: 5px;
+  
 }
 
 .vi-button-item.selected .vi-check-icon {
@@ -223,46 +347,69 @@
   color: #3A9BD9;
 }
 
-.vi-main2 {
+
+
+.vi-content-div{
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+  grid-template-columns: repeat(4, 1fr); /* 가로로 4줄 */
+  grid-template-rows: repeat(2, 1fr); /* 세로로 2줄 */
+  gap: 0px;
   padding: 0;
-  width: 90%;
-  height: 71%;
-  margin-top: 30px;
+  width: 100%;
+  height: 100%;
+  margin-top: 5px;
+
 }
 
+
 .vi-content {
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  padding: 20px 0px 0px 0px; 
+  
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
   background-color: #ffffff; 
-  margin: 0 15px; /* Adjusted margin for consistent spacing */
-  border-top: solid 1px #BFBFBF;
+  margin: 5px; 
+  border: solid 1px #e8e4e4;
   transition: transform 0.3s ease;
-  width: 95%;
-  height: 75%;
+  width:90%;
+  height: 90%;
+  border-radius: 8px;
+  padding:5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
 }
 
 .vi-content:hover {
   transform: translateY(-10px);
 }
 
+
+
 .vi-title {
   display: flex;
   justify-content: space-between; /* To position title and bookmark properly */
   align-items: center;
-  width: 100%;
+  width:100%;
   font-family: 'Pretendard';
   font-weight: 500;
   font-size: 15px;
   color: #191919;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  margin-top: 5px;
+  margin-left: 2px;
+  border-bottom: solid 1px #e8e4e4;
+  padding-bottom: 5px;
+  height: 20px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  overflow: hidden;
+
 }
 
+
 .vi-content-text {
-  width: 100%;
-  height: 55%;
+  width: 90%;
+  height: 80%;
   font-family: 'Pretendard';
   font-weight: 400;
   font-size: 14px;
@@ -272,30 +419,326 @@
   -webkit-line-clamp: 2;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  margin-left: 10px;
+     
+  
 }
 
 .vi-date {
   width: 100%;
-  height: 16px;
+  height: 20px;
   font-family: 'Pretendard';
   font-weight: 400;
   font-size: 13px;
   color: #BFBFBF; 
-
+  
   text-align: right; /* Align date to the right */
   display: right;
+  
 
 }
 
-.Bookmark {
+.vi-Bookmark {
   cursor: pointer;
-  margin-left: 5%;
+  margin-bottom: 5px;
   width: 20px; /* Size of the bookmark icon */
   height: 20px; /* Size of the bookmark icon */
+  
 }
 
-.Bookmark svg {
+.vi-Bookmark svg {
   width: 100%;
   height: 100%;
 }
+}
+
+
+/**************************************************************************/
+  /*모바일  브레이크 포인트 768*/
+  @media only screen and (max-width: 768px) {
+ 
+    
+
+  
+
+    .vi-main {
+      font-family: 'Pretendard';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 19px;
+      text-align: flex-end;
+      width: 100%;
+      color: #191919;
+    }
+
+    .vi-main-div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 15px;
+      position: relative;
+      width: 91%;
+      height: 100%;
+      margin: 0 auto;
+      overflow-y: auto;
+      
+    }
+
+    .vi-search {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      width: 70%;
+      max-width: 1200px;
+      background-color: #ffffff;
+      position: relative;
+      z-index: 2;
+      padding-bottom: 5px;
+      box-sizing: border-box;
+      margin-bottom:10px;
+      margin-top: 13px;
+    }
+
+    .vi-search-div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      height: 40px;
+      padding: 0;
+      gap: 5px;
+      background-color: #F2F2F2;
+      border-radius: 8px;
+    }
+
+    .vi-search-input {
+      flex: 1;
+      padding: 5px 12px;
+      border: none;
+      background: #F2F2F2;
+      border-radius: 8px;
+    }
+
+    .vi-search-input::placeholder {
+      font-family: 'Pretendard';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 15px;
+      color: #BFBFBF;
+    }
+
+    .vi-search-button {
+      width: 24px;
+      height: 24px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      margin-right: 15px;
+    }
+
+    .vi-list-button {
+      display: flex;
+      
+      justify-content: center;
+      align-items: left;
+      padding-left: 75%;
+      gap: 0px;
+
+    }
+
+    .vi-sort-label {
+      font-family: 'Pretendard';
+      font-weight: 400;
+      font-size: 15px;
+      color: #666666;
+      margin-right: 5px;
+    }
+
+    .vi-sort-button {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 35px;
+      height: 25px;
+      border: none;
+      border-radius: 3px;
+      background-color: #FFFFFF;
+    }
+
+    .vi-sort-icon {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: left;
+      gap: 0px;
+      width: 25px;
+      height: 45px;
+      padding-right: 5px;
+    }
+
+    .vi-line1, .vi-line2, .vi-line3 {
+      height: 0.5px;
+      background: #666666;
+      margin: 2px 0;
+    }
+
+    .vi-line1 {
+      width: 16px;
+    }
+
+    .vi-line2 {
+      width: 12px;
+    }
+
+    .vi-line3 {
+      width: 8px;
+    }
+
+    .vi-button-list {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 7px;
+      position: absolute;
+      top: 15%;
+      right: 10px;
+      background: #FFFFFF;
+      border-radius: 8px;
+      padding: 8px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      height:13%;
+      width: 110px;
+      z-index: 2000;
+      
+    }
+
+    .vi-button-item {
+      width: 115px;
+      height: 17px;
+      font-family: 'Pretendard' !important;
+      font-weight: 400;
+      font-size: 14px;
+      color: #666666;
+      border: none;
+      background: none;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-end;
+      justify-content: left;
+    }
+
+    .vi-check-icon {
+      width: 16px;
+      height: 16px;
+      display: none;
+      margin-left: 5px;
+      
+    }
+
+    .vi-button-item.selected .vi-check-icon {
+      display: block;
+    }
+
+    .vi-button-item.selected {
+      color: #3A9BD9;
+    }
+
+    .vi-content-div {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 20px;
+      padding: 0;
+      justify-content: center;
+      align-items: start;
+      width: 100%;
+      height: 71%;
+      margin-top: 25px;
+      align-items: auto;
+      box-sizing: border-box;
+      gap: 35px;
+    }
+
+    .vi-content {
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      padding: 20px 0px 0px 0px; 
+      background-color: #ffffff; 
+      margin: 0px; /* Adjusted margin for consistent spacing */
+      border-top: solid 1px #BFBFBF;
+      transition: transform 0.3s ease;
+      width: 95%;
+      height: 85%;
+      
+    }
+
+    .vi-content:hover {
+      transform: translateY(-10px);
+    }
+
+    .vi-title {
+      display: flex;
+      justify-content: space-between; /* To position title and bookmark properly */
+      align-items: center;
+      width: 100%;
+      font-family: 'Pretendard';
+      font-weight: 500;
+      font-size: 15px;
+      color: #191919;
+      margin-bottom: 10px;
+      
+      margin-left: 2px;
+      border-bottom: solid 1px #e8e4e4;
+  
+      height: 20px;
+      padding-bottom: 5px;
+      
+      overflow: hidden;
+    }
+
+    .vi-content-text {
+      width: 100%;
+      height: 55%;
+      font-family: 'Pretendard';
+      font-weight: 400;
+      font-size: 14px;
+      color: #8C8C8C; 
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 15px;
+  
+    }
+
+    .vi-date {
+      width: 100%;
+      height: 16px;
+      font-family: 'Pretendard';
+      font-weight: 400;
+      font-size: 13px;
+      color: #BFBFBF; 
+      
+      text-align: right; /* Align date to the right */
+      display: right;
+
+    }
+
+    .vi-Bookmark {
+      cursor: pointer;
+      margin-left: 5%;
+      width: 20px; /* Size of the bookmark icon */
+      height: 20px; /* Size of the bookmark icon */
+    }
+
+    .vi-Bookmark svg {
+      width: 100%;
+      height: 100%;
+    }
+
+  }
