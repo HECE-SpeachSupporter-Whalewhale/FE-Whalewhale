@@ -183,7 +183,7 @@ function ViewMemoriesPagePc() {
         </div>
       </div>
     </div>
-  </div>
+  </div> 
 
   );
 }
