@@ -1,165 +1,234 @@
-/* 메인 페이지 컨테이너 스타일 */
 .ma-main-page-container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  background-color: #ffffff;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #2e67ff, #ffffff);
+  overflow: hidden;
 }
 
-/* 헤더 스타일 */
 .ma-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 80px;
-  padding: 0 20px;
-  background-color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  border-bottom: 5px solid #87CEEB;
+  padding: 20px 40px;
 }
 
-/* 로고 컨테이너 스타일 */
-.ma-logo-container {
-  display: flex;
-  align-items: center;
-}
-
-/* 로고 스타일 */
 .ma-logo {
-  height: 60px;
-  cursor: pointer;
+  height: 40px;
 }
 
-/* 인증 버튼 컨테이너 스타일 */
-.ma-auth-buttons {
+.ma-login-container {
   display: flex;
-  gap: 10px;
-}
-
-/* 인증 버튼 스타일 */
-.ma-auth-button {
-  font-size: 1em;
-  background-color: #0277BF;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 10px 20px;
-  cursor: pointer;
-}
-
-/* 콘텐츠 프레임 스타일 */
-.ma-content-frame {
-  flex-grow: 1;
-  width: 100%;
-  background-color: #ffffff;
-  display: flex;
-  justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
-/* 콘텐츠 스타일 */
+.ma-login-icon {
+  height: 24px;
+  margin-right: 8px;
+}
+
+.ma-login-text {
+  color: white;
+  font-size: 16px;
+}
+
 .ma-content {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  width: 100%;
-  max-width: 800px;
-  gap: 40px;
-  padding: 60px 40px;
-}
-
-/* 이미지 컨테이너 스타일 */
-.ma-image-container {
-  width: 100%;
-  display: flex;
   justify-content: center;
   align-items: center;
+  flex-grow: 1;
+  padding: 0 40px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-/* 이미지 스타일 */
-.ma-image {
+.ma-main-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 80px;
+}
+
+.ma-main-text {
+  color: white;
+  text-align: left;
+  max-width: 50%;
+}
+
+.ma-title-image {
   width: 100%;
   max-width: 400px;
-  height: auto;
-  object-fit: cover;
-  border-radius: 10px;
-  position: relative;
-  top: -20px;
+  margin-bottom: 20px;
 }
 
-/* 버튼 컨테이너 스타일 */
+.ma-main-text p {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.ma-main-image {
+  width: 300px;
+  height: auto;
+  margin-left: 100px;
+}
+
 .ma-button-container {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  max-width: 800px;
+  gap: 40px;
 }
 
-/* 메인 버튼 스타일 */
 .ma-main-button {
-  font-size: 1em;
-  background-color: #0277BF;
-  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
   border: none;
-  border-radius: 4px;
-  padding: 15px 20px;
+  border-radius: 20px;
+  padding: 20px;
+  width: calc(33.33% - 27px);
+  height: 240px;
   cursor: pointer;
-  width: 30%;
-  max-width: 250px;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* 메인 버튼 호버 스타일 */
 .ma-main-button:hover {
-  background-color: #0056b3;
+  transform: translateY(-10px);
 }
 
-/* 반응형 스타일 - 모바일 */
+.ma-main-button span {
+  font-size: 18px;
+  color: #2461ff;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.ma-main-button p {
+  font-size: 14px;
+  color: #666;
+  text-align: center;
+  margin-bottom: 20px;
+  height: 40px;
+  line-height: 1.4;
+}
+
+.ma-button-image {
+  width: 100px;
+  height: 100px;
+  margin-top: auto;
+}
+
+.ma-button-image-mobile {
+  display: none;
+}
+
 @media (max-width: 768px) {
-  /* 헤더 높이 조정 */
+  .ma-main-page-container {
+    justify-content: flex-start;
+    padding: 20px;
+  }
+
   .ma-header {
-    height: 60px;
+    padding: 10px 0;
   }
 
-  /* 로고 크기 조정 */
   .ma-logo {
-    height: 40px;
+    height: 30px;
   }
 
-  /* 인증 버튼 스타일 조정 */
-  .ma-auth-button {
-    font-size: 0.9em;
-    padding: 8px 16px;
+  .ma-login-container {
+    display: flex;
   }
 
-  /* 콘텐츠 패딩 및 간격 조정 */
+  .ma-login-icon {
+    height: 20px;
+  }
+
+  .ma-login-text {
+    display: none;
+  }
+
   .ma-content {
-    padding: 40px 20px;
-    gap: 30px;
+    padding: 0;
+    align-items: flex-start;
   }
 
-  /* 이미지 크기 조정 */
-  .ma-image {
-    max-width: 300px;
-    position: relative;
-    top: -50px;
-  }
-
-  /* 버튼 컨테이너 스타일 변경 */
-  .ma-button-container {
+  .ma-main-section {
     flex-direction: column;
-    align-items: center;
-    gap: 20px;
+    align-items: flex-start;
+    margin-bottom: 30px;
   }
 
-  /* 메인 버튼 스타일 조정 */
+  .ma-main-text {
+    max-width: 100%;
+  }
+
+  .ma-title-image {
+    max-width: 200px;
+    margin-bottom: 10px;
+  }
+
+  .ma-main-text p {
+    font-size: 14px;
+    margin: 3px 0;
+  }
+
+  .ma-main-image {
+    width: 200px;
+    margin: 20px 0;
+    align-self: center;
+  }
+
+  .ma-button-container {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
   .ma-main-button {
-    width: 100%;
-    max-width: none;
-    font-size: 0.9em;
-    padding: 12px 16px;
+    width: calc(33.33% - 7px);
+    height: auto;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 10px;
+    border-radius: 10px;
+  }
+
+  .ma-main-button span {
+    font-size: 14px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .ma-main-button p {
+    display: none;
+  }
+
+  .ma-button-image {
+    display: none;
+  }
+
+  .ma-button-image-mobile {
+    display: block;
+    width: 40px;
+    height: 40px;
+    margin: 0;
+  }
+}
+
+@media (min-width: 769px) {
+  .ma-main-page-container {
+    min-height: 768px;
+    height: auto;
+  }
+
+  .ma-content {
+    min-height: calc(100vh - 80px);
   }
 }
