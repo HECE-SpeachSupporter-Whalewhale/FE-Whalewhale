@@ -1,123 +1,76 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './style.css';
 import logoImage from '../../images/logo.png';
-import blankBoxImage from '../../images/main.png';
-import image1 from '../../images/announce.png';
-import image2 from '../../images/help.png';
-import image3 from '../../images/memory.png';
+import titleImage from '../../images/title.png';
+import mainWhaleImage from '../../images/main.png';
+import buttonWhale1 from '../../images/announce.png';
+import buttonWhale2 from '../../images/help.png';
+import buttonWhale3 from '../../images/memory.png';
+import mobileAnnounce from '../../images/mobile-announce.png';
+import mobileHelp from '../../images/mobile-help.png';
+import mobileMemory from '../../images/mobile-memory.png';
+import loginIcon from '../../images/login.png';
 
-const MainPage = ({ isLoggedIn, user, logout }) => {
+const MainPage = () => {
   const navigate = useNavigate();
-  const [currentImage, setCurrentImage] = useState(blankBoxImage);
 
-  // 발표 페이지로 이동하는 함수
   const handleCreateSpeechPage = () => {
     navigate('/create');
   };
 
-  // 도움 페이지로 이동하는 함수
   const handleHelpWithSpeech = () => {
     navigate('/help-with-speech');
   };
 
-  // 추억 페이지로 이동하는 함수
   const handleViewMemories = () => {
     navigate('/view-memories');
   };
 
-  // 로그인 페이지로 이동하는 함수
   const handleLogin = () => {
     navigate('/login');
   };
 
-  // 회원가입 페이지로 이동하는 함수
-  const handleRegister = () => {
-    navigate('/register');
-  };
-
-  // 로고 클릭 시 메인 페이지로 이동하고 새로고침하는 함수
-  const handleLogoClick = () => {
-    navigate('/');
-    window.location.reload();
-  };
-
-  // 마우스 진입 시 이미지를 변경하는 함수
-  const handleMouseEnter = (image) => {
-    setCurrentImage(image);
-  };
-
-  // 마우스 떠날 시 이미지를 기본 이미지로 변경하는 함수
-  const handleMouseLeave = () => {
-    setCurrentImage(blankBoxImage);
-  };
-
   return (
     <div className="ma-main-page-container">
-      {/* 헤더 영역 */}
       <div className="ma-header">
-        {/* 로고 컨테이너 */}
         <div className="ma-logo-container">
-          <img src={logoImage} alt="고래고래" className="ma-logo" onClick={handleLogoClick} />
+          <img src={logoImage} alt="고래고래" className="ma-logo" />
         </div>
-        {/* 인증 버튼 컨테이너 */}
-        <div className="ma-auth-buttons">
-          {isLoggedIn ? (
-            <>
-              <button className="ma-auth-button ma-user-button">사용자님</button>
-              <button className="ma-auth-button" onClick={logout}>로그아웃</button>
-            </>
-          ) : (
-            <>
-              <button className="ma-auth-button" onClick={handleLogin}>로그인</button>
-              <button className="ma-auth-button" onClick={handleRegister}>회원가입</button>
-            </>
-          )}
+        <div className="ma-login-container" onClick={handleLogin}>
+          <img src={loginIcon} alt="로그인" className="ma-login-icon" />
+          <span className="ma-login-text">로그인하기</span>
         </div>
       </div>
-      {/* 콘텐츠 영역 */}
-      <div className="ma-content-frame">
-        <div className="ma-content">
-          {/* 이미지 컨테이너 */}
-          <div className="ma-image-container">
-            <img src={currentImage} alt="이미지" className="ma-image" />
+      <div className="ma-content">
+        <div className="ma-main-section">
+          <div className="ma-main-text">
+            <img src={titleImage} alt="고래고래" className="ma-title-image" />
+            <p>AI 기반의 맞춤형 발표 도우미 서비스</p>
+            <p>실시간으로 발표 진행 상황을 확인하고,</p>
+            <p>개인화된 피드백을 받아가세요!</p>
           </div>
-          {/* 버튼 컨테이너 */}
-          <div className="ma-button-container">
-            <button
-              className="ma-main-button"
-              onClick={handleCreateSpeechPage}
-              onMouseEnter={() => handleMouseEnter(image1)}
-              onMouseLeave={handleMouseLeave}
-            >
-              WIS와 발표하기
-            </button>
-            {isLoggedIn ? (
-              <>
-                <button
-                  className="ma-main-button"
-                  onClick={handleHelpWithSpeech}
-                  onMouseEnter={() => handleMouseEnter(image2)}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  WIS의 도움받기
-                </button>
-                <button
-                  className="ma-main-button"
-                  onClick={handleViewMemories}
-                  onMouseEnter={() => handleMouseEnter(image3)}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  추억 살펴보기
-                </button>
-              </>
-            ) : (
-              <>
-                <button className="ma-main-button" onClick={handleLogin}>🔒 WIS의 도움받기</button>
-                <button className="ma-main-button" onClick={handleLogin}>🔒 추억 살펴보기</button>
-              </>
-            )}
-          </div>
+          <img src={mainWhaleImage} alt="메인 고래" className="ma-main-image" />
+        </div>
+        <div className="ma-button-container">
+          <button className="ma-main-button" onClick={handleCreateSpeechPage}>
+            <span>WIS와 발표하기</span>
+            <p>실시간 대본 표시 기능을 통한<br />시간 관리하기</p>
+            <img src={buttonWhale1} alt="WIS와 발표하기" className="ma-button-image" />
+            <img src={mobileAnnounce} alt="WIS와 발표하기" className="ma-button-image-mobile" />
+          </button>
+          <button className="ma-main-button" onClick={handleHelpWithSpeech}>
+            <span>WIS 도움받기</span>
+            <p>AI를 활용한 가이드 분석과 사용자<br />맞춤형 대본 생성 및 분석</p>
+            <img src={buttonWhale2} alt="WIS 도움받기" className="ma-button-image" />
+            <img src={mobileHelp} alt="WIS 도움받기" className="ma-button-image-mobile" />
+          </button>
+          <button className="ma-main-button" onClick={handleViewMemories}>
+            <span>WIS와의 추억</span>
+            <p>이전에 작성한 대본들의 효율적인<br />관리 및 검색</p>
+            <img src={buttonWhale3} alt="WIS와의 추억" className="ma-button-image" />
+            <img src={mobileMemory} alt="WIS와의 추억" className="ma-button-image-mobile" />
+          </button>
         </div>
       </div>
     </div>
