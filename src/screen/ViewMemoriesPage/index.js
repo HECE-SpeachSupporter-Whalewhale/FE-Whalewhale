@@ -13,7 +13,7 @@ function ViewMemoriesPagePc() {
   // 버튼 리스트 항목
   const buttons = ['최신순', '이름순', '검색어 관련순', '즐겨찾기순'];  
 
-  const [titles, setTitle] = useState([
+  const [title, setTitle] = useState([
     '편집 디자인 발표',
     '디자인 원리',
     'UI/UX 발표',
@@ -23,7 +23,7 @@ function ViewMemoriesPagePc() {
     '자료구조 발표',
     '프로젝트 발표1'
   ]);
-  const [contents, setContent] = useState([
+  const [body, setbody] = useState([
     '안녕하세요, 편집디자인 설계 기말과제를 발표할 19학번 이민우라고 합니다. \n 오늘 저는 이번 학기 동안 진행한 편집디자인 설계 프로젝트에 대해 말씀드리고자 합니다. 이 프로젝트는 저에게 창의성과 기술적 역량을 발휘할 수 있는 소중한 기회가 되었습니다. 먼저, 프로젝트의 주제를 설명드리겠습니다. ',
     '안녕하세요, 디자인 원리를 발표할 19학번 김철수입니다. 오늘 저는 디자인 원리의 중요성과 이를 실제 작업에 어떻게 적용할 수 있는지에 대해 말씀드리고자 합니다. ',
     '안녕하세요, UI/UX를 발표할 19학번 박영희입니다. ',
@@ -33,7 +33,7 @@ function ViewMemoriesPagePc() {
     '안녕하세요, 저는 자료구조 발표를 맡은 21학번 000입니다. 오늘',
     '안녕하세요, 저는 프로젝트 발표를 맡은 21학번 000입니다.'
   ]);
-  const [dates, setDate] = useState([
+  const [created_at, setDate] = useState([
     '2024.04.15',
     '2024.04.16',
     '2024.04.17',
@@ -53,10 +53,10 @@ function ViewMemoriesPagePc() {
     setSelectedButton(index);
 
     // 정렬 로직
-    const combined = titles.map((title, i) => ({
+    const combined = title.map((title, i) => ({
         title,
-        content: contents[i],
-        date: dates[i],
+        body: body[i],
+        date: created_at[i],
         isBookmarked: bookmark.includes(i)
     }));
 
@@ -83,7 +83,7 @@ function ViewMemoriesPagePc() {
 
     // 정렬된 데이터로 상태 업데이트
     setTitle(combined.map(item => item.title));
-    setContent(combined.map(item => item.content));
+    setbody(combined.map(item => item.body));
     setDate(combined.map(item => item.date));
     
     // 즐겨찾기 상태 업데이트
@@ -160,7 +160,7 @@ function ViewMemoriesPagePc() {
               </div>
       
         <div className='vi-content-div'>
-        {titles.map((title, index) => (
+        {title.map((title, index) => (
             <div key={index} className='vi-content'>
               <div className="vi-title">
                 {title}
@@ -176,8 +176,8 @@ function ViewMemoriesPagePc() {
                   )}
                 </div>
               </div>
-              <div className="vi-content-text">{contents[index]}</div>
-              <div className="vi-date">{dates[index]}</div>
+              <div className="vi-content-text">{body[index]}</div>
+              <div className="vi-date">{created_at[index]}</div>
             </div>
           ))}
         </div>
