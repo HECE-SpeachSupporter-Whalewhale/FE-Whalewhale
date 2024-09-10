@@ -91,14 +91,15 @@
   border-radius: 20px;
   padding: 20px;
   width: calc(33.33% - 27px);
-  height: 240px;
+  height: 320px;  /* Changed from 240px to 320px */
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;  /* Added box-shadow transition */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .ma-main-button:hover {
-  transform: translateY(-10px);
+  transform: translateY(-15px);  /* Changed from -10px to -15px */
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);  /* Increased shadow on hover */
 }
 
 .ma-main-button span {
@@ -118,8 +119,8 @@
 }
 
 .ma-button-image {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   margin-top: auto;
 }
 
@@ -143,14 +144,17 @@
 
   .ma-login-container {
     display: flex;
+    align-items: center;
   }
 
   .ma-login-icon {
     height: 20px;
+    margin-right: 5px;
   }
 
   .ma-login-text {
-    display: none;
+    display: inline;  /* Changed from 'none' to 'inline' */
+    font-size: 14px;  /* Reduced font size for mobile */
   }
 
   .ma-content {
