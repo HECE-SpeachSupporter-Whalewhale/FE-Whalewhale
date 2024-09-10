@@ -34,7 +34,16 @@ const GenerationPage = () => {
   };
 
   const handleSave = () => {
-    alert('저장 기능이 구현되었습니다.');
+    // Convert minutes and seconds to total seconds
+    const totalSeconds = parseInt(minutes) * 60 + parseInt(seconds);
+    
+    navigate('/practice', {
+      state: {
+        title,
+        content,
+        estimatedDuration: totalSeconds
+      }
+    });
   };
 
   const handleBack = () => {
@@ -86,7 +95,7 @@ const GenerationPage = () => {
         </div>
         <div className="generation-button-group">
           <button className="generation-button" onClick={handleEdit}>수정하기</button>
-          <button className="generation-button" onClick={handleSave}>저장하기</button>
+          <button className="generation-button" onClick={handleSave}>발표하기</button>
         </div>
       </div>
     </div>

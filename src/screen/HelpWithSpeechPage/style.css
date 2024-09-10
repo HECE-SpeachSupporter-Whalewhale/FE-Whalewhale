@@ -106,7 +106,8 @@
 }
 
 .he-time-input {
-  width: 60px;
+  width: 300px;
+  height: 30px;
   text-align: center;
 }
 
@@ -204,11 +205,6 @@
 
   .he-time-inputs {
     gap: 10px;
-  }
-
-  .he-time-input {
-    width: 80px;
-    font-size: 1.1em;
   }
 
   .he-time-span {

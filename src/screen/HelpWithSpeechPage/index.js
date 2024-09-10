@@ -158,7 +158,7 @@ const HelpWithSpeechPage = ({ showModal }) => {
               <div className="he-time-inputs">
                 <input
                   type="number"
-                  placeholder="분"
+                  placeholder="예시) 1"
                   className="he-time-input"
                   value={minutes}
                   onChange={(e) => setMinutes(e.target.value)}
@@ -168,7 +168,7 @@ const HelpWithSpeechPage = ({ showModal }) => {
                 <span className="he-time-span">분</span>
                 <input
                   type="number"
-                  placeholder="초"
+                  placeholder="예시) 30"
                   className="he-time-input"
                   value={seconds}
                   onChange={(e) => setSeconds(e.target.value)}
