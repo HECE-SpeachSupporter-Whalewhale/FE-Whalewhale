@@ -26,6 +26,7 @@
 .cr-create-speech-header-title {
   font-size: 1.2em;
   font-weight: bold;
+  margin-left: 10px;
 }
 
 /* 로그인 버튼 스타일 */

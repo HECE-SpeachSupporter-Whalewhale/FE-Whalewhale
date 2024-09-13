@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './style.css';
-import mobileLogoImage from '../../images/logo.png';
+import mobileLogoImage from '../../images/logo3.png';
 import webLogoImage from '../../images/logo2.png';
 
 const LoginPage = ({ login }) => {
