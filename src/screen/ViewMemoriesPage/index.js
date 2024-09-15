@@ -44,6 +44,14 @@ function ViewMemoriesPagePc() {
     '2024.08.11'
   ]);
 
+  const [filteredData, setFilteredData] = useState({
+    titles: title,
+    bodies: body,
+    dates: created_at,
+    bookmarks: bookmark
+  });
+
+
   // 버튼 리스트 토글 함수
   const toggleList = () => {
     setIsListVisible(prevState => !prevState);
@@ -82,16 +90,15 @@ function ViewMemoriesPagePc() {
     }
 
     // 정렬된 데이터로 상태 업데이트
-    setTitle(combined.map(item => item.title));
-    setbody(combined.map(item => item.body));
-    setDate(combined.map(item => item.date));
-    
-    // 즐겨찾기 상태 업데이트
-    const newBookmarks = combined
-      .filter(item => item.isBookmarked)
-      .map((_, i) => i); // 즐겨찾기 인덱스 업데이트
-    setBookmark(newBookmarks);
+    setFilteredData({
+      titles: combined.map(item => item.title),
+      bodies: combined.map(item => item.body),
+      dates: combined.map(item => item.date),
+      bookmarks: combined.filter(item => item.isBookmarked).map((_, i) => i)
+    });
 };
+    
+   
 
   const handleBack = () => {
     navigate('/');
@@ -106,6 +113,68 @@ function ViewMemoriesPagePc() {
       }
     });
   };
+
+
+const handleSearch = (event) => {
+  setSearchTerm(event.target.value);
+};
+
+const performSearch = () => {
+  const searchTermLower = searchTerm.toLowerCase();
+
+  // Combine title, body, and date data
+  const combined = title.map((title, i) => ({
+    title,
+    body: body[i],
+    date: created_at[i],
+    isBookmarked: bookmark.includes(i),
+    relevance: (title.toLowerCase().includes(searchTermLower) ? 
+                (title.toLowerCase().indexOf(searchTermLower) + 1) : 0)
+  }));
+
+  // Filter the items based on the search term
+  const filtered = combined.filter(item =>
+    item.title.toLowerCase().includes(searchTermLower) ||
+    item.body.toLowerCase().includes(searchTermLower)
+  );
+
+  // Sort by relevance score (higher is better) and then by date
+  filtered.sort((a, b) => {
+    if (b.relevance !== a.relevance) {
+      return b.relevance - a.relevance; // Sort by relevance score
+    }
+    return new Date(b.date) - new Date(a.date); // Then by date
+  });
+
+  // Update the state with the sorted filtered data
+  setFilteredData({
+    titles: filtered.map(item => item.title),
+    bodies: filtered.map(item => item.body),
+    dates: filtered.map(item => item.date),
+    bookmarks: filtered
+      .filter(item => item.isBookmarked)
+      .map((_, i) => i) // Update bookmarks based on filtered data
+  });
+};
+
+
+const handleKeyPress = (event) => {
+  if (event.key === 'Enter') {
+    performSearch();
+  }
+};
+
+
+const handleViewDetailPage = (index) => {
+  navigate('/ViewMemoriesPage_Detail', {
+    state: {
+      title: filteredData.titles[index],
+      body: filteredData.bodies[index],
+      created_at: filteredData.dates[index]
+    }
+  });
+};
+
   return(
     
   <div className='vi-ViewMemoriesPage'>
@@ -120,8 +189,13 @@ function ViewMemoriesPagePc() {
       <div className='vi-main-div'>
         <div className='vi-search'>
           <div className='vi-search-div'>
-            <input type='text' className='vi-search-input' placeholder='검색어를 입력하세요.'/>
-            <button className='vi-search-button'>
+            <input type='text' 
+            className='vi-search-input' 
+            placeholder='검색어를 입력하세요.'  
+            value={searchTerm}
+                onChange={handleSearch}
+                onKeyPress={handleKeyPress}/>
+            <button className='vi-search-button' onClick={performSearch}>
               <svg  width="30" height="30" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M9.73043 10.1374C8.85669 10.8847 7.72225 11.3359 6.48242 11.3359C3.721 11.3359 1.48242 9.09736 1.48242 6.33594C1.48242 3.57451 3.721 1.33594 6.48242 1.33594C9.24385 1.33594 11.4824 3.57451 11.4824 6.33594C11.4824 7.71252 10.9261 8.95917 10.0261 9.86334C9.9566 9.8873 9.89136 9.927 9.8359 9.98246C9.78991 10.0284 9.75476 10.0812 9.73043 10.1374ZM10.1956 11.0493C9.17414 11.8551 7.88444 12.3359 6.48242 12.3359C3.16871 12.3359 0.482422 9.64965 0.482422 6.33594C0.482422 3.02223 3.16871 0.335938 6.48242 0.335938C9.79613 0.335938 12.4824 3.02223 12.4824 6.33594C12.4824 7.88745 11.8935 9.30142 10.9271 10.3665L13.3714 12.8109C13.5667 13.0061 13.5667 13.3227 13.3714 13.518C13.1762 13.7133 12.8596 13.7133 12.6643 13.518L10.1956 11.0493Z" fill="#8C8C8C"/>
               </svg>
@@ -159,28 +233,28 @@ function ViewMemoriesPagePc() {
                 )}
               </div>
       
-        <div className='vi-content-div'>
-        {title.map((title, index) => (
-            <div key={index} className='vi-content'>
-              <div className="vi-title">
-                {title}
-                <div className="vi-Bookmark" onClick={() => toggleBookmark(index)}>
-                  {bookmark.includes(index) ? (
-                    <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="#FFD700"/>
-                    </svg>
-                  ) : (
-                    <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" stroke="#D9D9D9" fill="none"/>
-                    </svg>
-                  )}
+            <div className='vi-content-div'>
+              {filteredData.titles.map((title, index) => (
+                <div key={index} className='vi-content'>
+                  <div className="vi-title" onClick={() => handleViewDetailPage(index)}>
+                    {title}
+                    <div className="vi-Bookmark" onClick={() => toggleBookmark(index)}>
+                      {filteredData.bookmarks.includes(index) ? (
+                        <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="#FFD700"/>
+                        </svg>
+                      ) : (
+                        <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" stroke="#D9D9D9" fill="none"/>
+                        </svg>
+                      )}
+                    </div>
+                  </div>
+                  <div className="vi-content-text" onClick={() => handleViewDetailPage(index)}>{filteredData.bodies[index]}</div>
+                  <div className="vi-date" onClick={() => handleViewDetailPage(index)}>{filteredData.dates[index]}</div>
                 </div>
-              </div>
-              <div className="vi-content-text">{body[index]}</div>
-              <div className="vi-date">{created_at[index]}</div>
+              ))}
             </div>
-          ))}
-        </div>
       </div>
     </div>
   </div> 
