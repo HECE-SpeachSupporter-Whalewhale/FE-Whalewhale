@@ -9,7 +9,7 @@ function ViewMemoriesPage() {
   // 상태 설정  
   const [isListVisible, setIsListVisible] = useState(false);
   const [selectedButton, setSelectedButton] = useState(null);
-  const [bookmark, setBookmark] = useState([]); // 즐겨찾기 버튼
+  const [is_bookmarked, setBookmark] = useState([]); // 즐겨찾기 버튼
   const [searchTerm, setSearchTerm] = useState('');
   // 버튼 리스트 항목
   const buttons = ['최신순', '이름순', '검색어 관련순', '즐겨찾기순'];  
@@ -47,9 +47,10 @@ function ViewMemoriesPage() {
 
   const [filteredData, setFilteredData] = useState({
     titles: title,
+
     bodies: body,
     dates: created_at,
-    bookmarks: bookmark
+    bookmarks: is_bookmarked
   });
 
   const handleDelete = (index) => {
@@ -88,14 +89,14 @@ function ViewMemoriesPage() {
         title,
         body: body[i],
         date: created_at[i],
-        isBookmarked: bookmark.includes(i)
+        is_Bookmarked: is_bookmarked.includes(i)
     }));
 
     // 즐겨찾기순 정렬 처리
     if (index === 3) {
         combined.sort((a, b) => {
-            if (a.isBookmarked && !b.isBookmarked) return -1; // a가 즐겨찾기, b가 아닌 경우
-            if (!a.isBookmarked && b.isBookmarked) return 1; // b가 즐겨찾기, a가 아닌 경우
+            if (a.is_Bookmarked && !b.is_Bookmarked) return -1; // a가 즐겨찾기, b가 아닌 경우
+            if (!a.is_Bookmarked && b.is_Bookmarked) return 1; // b가 즐겨찾기, a가 아닌 경우
             return new Date(b.date) - new Date(a.date); // 즐겨찾기가 아닌 경우 최신순 정렬
         });
     } else {
@@ -117,7 +118,7 @@ function ViewMemoriesPage() {
       titles: combined.map(item => item.title),
       bodies: combined.map(item => item.body),
       dates: combined.map(item => item.date),
-      bookmarks: combined.filter(item => item.isBookmarked).map((_, i) => i)
+      bookmarks: combined.filter(item => item.is_Bookmarked).map((_, i) => i)
     });
 };
     
@@ -156,7 +157,7 @@ const performSearch = () => {
     title,
     body: body[i],
     date: created_at[i],
-    isBookmarked: bookmark.includes(i),
+    is_bookmarked: is_bookmarked.includes(i),
     relevance: (title.toLowerCase().includes(searchTermLower) ? 
                 (title.toLowerCase().indexOf(searchTermLower) + 1) : 0)
   }));
@@ -179,7 +180,7 @@ const performSearch = () => {
     bodies: filtered.map(item => item.body),
     dates: filtered.map(item => item.date),
     bookmarks: filtered
-      .filter(item => item.isBookmarked)
+      .filter(item => item.is_bookmarked)
       .map((_, i) => i) 
   });
 };
@@ -205,7 +206,7 @@ const handleViewDetailPage = (index) => {
 
 
   return(
-    
+
   <div className='vi-ViewMemoriesPage'>
     <div className='vi-header'>
       <button className='vi-backbutton' onClick={handleBack}>
@@ -266,8 +267,8 @@ const handleViewDetailPage = (index) => {
               {filteredData.titles.map((title, index) => (
                 <div key={index} className='vi-content'>
                   <div className='vi-title-div'>
-                  <div className="vi-title" onClick={() => handleViewDetailPage(index)}>
-                    {title}
+                    <div className="vi-title" onClick={() => handleViewDetailPage(index)}>
+                     {title}
                     </div> 
                     <div className="vi-Bookmark" onClick={() => toggleBookmark(index)}>
                       {filteredData.bookmarks.includes(index) ? (
