@@ -3,37 +3,50 @@ import { useNavigate } from 'react-router-dom';
 import './style.css';
 import mobileLogoImage from '../../images/logo3.png';
 import webLogoImage from '../../images/logo2.png';
+import { login as apiLogin } from '../../services/api';
 
-const LoginPage = ({ login }) => {
+const LoginPage = ({ onLogin }) => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState({});
+  const [error, setError] = useState('');
   const passwordInputRef = useRef(null);
 
   const validateForm = () => {
-    const newErrors = {};
-    if (!email) {
-      newErrors.email = '이메일을 입력해주세요.';
+    if (!username) {
+      setError('사용자 이름(이메일)을 입력해주세요.');
+      return false;
     }
     if (!password) {
-      newErrors.password = '비밀번호를 입력해주세요.';
+      setError('비밀번호를 입력해주세요.');
+      return false;
     }
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    return true;
   };
 
-  const handleLogin = () => {
-    if (!validateForm()) {
-      return;
-    }
-    if (email === 'qwer@naver.com' && password === 'qwer1234') {
-      console.log('로그인 성공');
-      login({ email });
-      navigate('/');
-    } else {
-      console.error('로그인 실패');
-      alert('이메일 또는 비밀번호가 올바르지 않습니다.');
+  const handleLogin = async () => {
+    if (!validateForm()) return;
+    try {
+      const response = await apiLogin({ username, password });
+      console.log('로그인 성공', response);
+      if (response.data && response.data.nickname) {
+        onLogin({
+          nickname: response.data.nickname,
+          username: response.data.username
+        });
+        navigate('/');
+      } else {
+        setError('로그인 정보가 올바르지 않습니다. 서버 응답: ' + JSON.stringify(response.data));
+      }
+    } catch (error) {
+      console.error('로그인 실패', error);
+      if (error.response) {
+        setError(`로그인 실패: ${error.response.status} - ${error.response.data}`);
+      } else if (error.request) {
+        setError('서버에 연결할 수 없습니다. 네트워크 연결을 확인해주세요.');
+      } else {
+        setError('로그인 처리 중 오류가 발생했습니다.');
+      }
     }
   };
 
@@ -66,13 +79,12 @@ const LoginPage = ({ login }) => {
           <h2 className="log-title web-only">로그인</h2>
           <input
             type="email"
-            placeholder="이메일을 입력해주세요."
+            placeholder="사용자 이름(이메일)을 입력해주세요."
             className="log-input-field"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             onKeyDown={handleUsernameKeyPress}
           />
-          {errors.email && <div className="log-error-message">{errors.email}</div>}
           <input
             type="password"
             placeholder="비밀번호를 입력해주세요."
@@ -82,7 +94,7 @@ const LoginPage = ({ login }) => {
             onKeyDown={handlePasswordKeyPress}
             ref={passwordInputRef}
           />
-          {errors.password && <div className="log-error-message">{errors.password}</div>}
+          {error && <div className="log-error-message">{error}</div>}
           <button className="log-button" onClick={handleLogin}>로그인</button>
           <div className="log-additional-options">
             <span>계정이 없으신가요?</span>
