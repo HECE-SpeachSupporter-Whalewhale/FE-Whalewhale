@@ -400,7 +400,7 @@ overflow: hidden;
   color: #191919;
   margin-bottom: 20px;
   margin-top: 5px;
-  margin-left: 10px;
+  margin-left: 15px;
   border-bottom: solid 1px #e8e4e4;
   padding-bottom: 5px;
   height: 20px;
@@ -439,7 +439,7 @@ overflow: hidden;
   overflow: hidden;
   text-overflow: ellipsis;
   margin-bottom: 20px;
-  margin-left: 10px;
+  margin-left: 15px;
   line-height: 28px;
 }
 
