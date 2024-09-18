@@ -400,7 +400,7 @@ overflow: hidden;
   color: #191919;
   margin-bottom: 20px;
   margin-top: 5px;
-  margin-left: 10px;
+  margin-left: 15px;
   border-bottom: solid 1px #e8e4e4;
   padding-bottom: 5px;
   height: 20px;
@@ -439,7 +439,7 @@ overflow: hidden;
   overflow: hidden;
   text-overflow: ellipsis;
   margin-bottom: 20px;
-  margin-left: 10px;
+  margin-left: 20px;
   line-height: 28px;
 }
 
@@ -678,7 +678,7 @@ overflow: hidden;
       margin: 0px; /* Adjusted margin for consistent spacing */
       border-top: solid 1px #BFBFBF;
       transition: transform 0.3s ease;
-      width: 95%;
+      width: 97%;
       height: 85%;
       
     }
@@ -687,9 +687,13 @@ overflow: hidden;
       transform: translateY(-10px);
     }
 
-    .vi-title {
+
+    .vi-title-div {
       display: flex;
-      justify-content: space-between; /* To position title and bookmark properly */
+      justify-content: space-between;
+    }
+    .vi-title {
+       /* To position title and bookmark properly */
       align-items: center;
       width: 100%;
       font-family: 'Pretendard';
@@ -697,13 +701,10 @@ overflow: hidden;
       font-size: 15px;
       color: #191919;
       margin-bottom: 10px;
-      
       margin-left: 2px;
       border-bottom: solid 1px #e8e4e4;
-  
-      height: 20px;
-      padding-bottom: 5px;
-      
+     
+      padding-bottom: 5px;  
       overflow: hidden;
     }
 
@@ -738,7 +739,7 @@ overflow: hidden;
 
     .vi-Bookmark {
       cursor: pointer;
-      margin-left: 5%;
+     
       width: 20px; /* Size of the bookmark icon */
       height: 20px; /* Size of the bookmark icon */
     }
