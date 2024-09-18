@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import CreateSpeechPage from './screen/CreateSpeechPage';
 import GeneratedSpeechPage from './screen/GeneratedSpeechPage';
 import PracticeSpeechPage from './screen/PracticeSpeechPage';
@@ -11,13 +11,21 @@ import GenerationPage from './screen/GenerationPage';
 import HelpWithSpeechPage from './screen/HelpWithSpeechPage';
 import ViewMemoriesPage from './screen/ViewMemoriesPage';
 import SpeechResultPage from './screen/SpeechResultPage';
-import ViewMemoriesPage_Detail from './screen/ViewMemoriesPage_Detail'
+import ViewMemoriesPage_Detail from './screen/ViewMemoriesPage_Detail';
 
 function App() {
   const [modalVisible, setModalVisible] = useState(false);
   const [speechData, setSpeechData] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   const showModal = (data) => {
     setSpeechData(data);
@@ -31,11 +39,13 @@ function App() {
   const login = (userData) => {
     setIsLoggedIn(true);
     setUser(userData);
+    localStorage.setItem('user', JSON.stringify(userData));
   };
 
   const logout = () => {
     setIsLoggedIn(false);
     setUser(null);
+    localStorage.removeItem('user');
   };
 
   return (
@@ -43,7 +53,7 @@ function App() {
       <div className="app-container">
         <Routes>
           <Route path="/" element={<MainPage isLoggedIn={isLoggedIn} user={user} logout={logout} />} />
-          <Route path="/create" element={<CreateSpeechPage showModal={showModal} />} />
+          <Route path="/create" element={isLoggedIn ? <CreateSpeechPage showModal={showModal} /> : <Navigate to="/login" />} />
           <Route path="/practice" element={
             <PracticeSpeechPage 
               isLoggedIn={isLoggedIn} 
@@ -51,14 +61,14 @@ function App() {
               logout={logout}
             />
           } />
-          <Route path="/login" element={<LoginPage login={login} />} />
+          <Route path="/login" element={<LoginPage onLogin={login} />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/forgot-password" element={<PasswordResetPage />} />
-          <Route path="/generation" element={<GenerationPage />} />
-          <Route path="/help-with-speech" element={<HelpWithSpeechPage showModal={showModal}/>} />
-          <Route path="/view-memories" element={<ViewMemoriesPage />} />
-          <Route path="/speech-result" element={<SpeechResultPage />} />
-          <Route path="/ViewMemoriesPage_Detail" element={<ViewMemoriesPage_Detail />} />
+          <Route path="/generation" element={isLoggedIn ? <GenerationPage /> : <Navigate to="/login" />} />
+          <Route path="/help-with-speech" element={isLoggedIn ? <HelpWithSpeechPage showModal={showModal}/> : <Navigate to="/login" />} />
+          <Route path="/view-memories" element={isLoggedIn ? <ViewMemoriesPage /> : <Navigate to="/login" />} />
+          <Route path="/speech-result" element={isLoggedIn ? <SpeechResultPage /> : <Navigate to="/login" />} />
+          <Route path="/ViewMemoriesPage_Detail" element={isLoggedIn ? <ViewMemoriesPage_Detail /> : <Navigate to="/login" />} />
         </Routes>
         {modalVisible && (
           <div className="modal-backdrop">
@@ -71,25 +81,3 @@ function App() {
 }
 
 export default App;
-
-
-// import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
- 
-// function App() {
-//   const [hidata, setHello] = useState('')
- 
-//   useEffect(() => {
-//     axios.get('http://localhost:8080/api/hello')
-//       .then(response => setHello(response.data))
-//       .catch(error => console.log(error))
-//   }, []);
- 
-//   return (
-//     <div>
-//       백엔드 스프링 부트 데이터 : {hidata}
-//     </div>
-//   );
-// }
- 
-// export default App;

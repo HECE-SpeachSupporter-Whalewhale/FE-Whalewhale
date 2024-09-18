@@ -12,7 +12,7 @@ import mobileHelp from '../../images/mobile-help.png';
 import mobileMemory from '../../images/mobile-memory.png';
 import loginIcon from '../../images/login.png';
 
-const MainPage = () => {
+const MainPage = ({ isLoggedIn, user, logout }) => {
   const navigate = useNavigate();
 
   const handleCreateSpeechPage = () => {
@@ -20,15 +20,28 @@ const MainPage = () => {
   };
 
   const handleHelpWithSpeech = () => {
-    navigate('/help-with-speech');
+    if (isLoggedIn) {
+      navigate('/help-with-speech');
+    } else {
+      alert('로그인 후 이용하실 수 있는 기능입니다.');
+    }
   };
 
   const handleViewMemories = () => {
-    navigate('/view-memories');
+    if (isLoggedIn) {
+      navigate('/view-memories');
+    } else {
+      alert('로그인 후 이용하실 수 있는 기능입니다.');
+    }
   };
 
   const handleLogin = () => {
     navigate('/login');
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
   };
 
   return (
@@ -37,9 +50,16 @@ const MainPage = () => {
         <div className="ma-logo-container">
           <img src={logoImage} alt="고래고래" className="ma-logo" />
         </div>
-        <div className="ma-login-container" onClick={handleLogin}>
+        <div className="ma-login-container" onClick={isLoggedIn ? handleLogout : handleLogin}>
           <img src={loginIcon} alt="로그인" className="ma-login-icon" />
-          <span className="ma-login-text">로그인하기</span>
+          {isLoggedIn && user ? (
+            <span className="ma-user-info">
+              <span className="ma-user-name">{user.nickname} 님</span>
+              <span className="ma-logout-text"> | 로그아웃</span>
+            </span>
+          ) : (
+            <span className="ma-login-text">로그인하기</span>
+          )}
         </div>
       </div>
       <div className="ma-content">
@@ -60,13 +80,13 @@ const MainPage = () => {
             <img src={mobileAnnounce} alt="WIS와 발표하기" className="ma-button-image-mobile" />
           </button>
           <button className="ma-main-button" onClick={handleHelpWithSpeech}>
-            <span>WIS 도움받기</span>
+            <span>WIS 도움받기 {!isLoggedIn && '🔒'}</span>
             <p>AI를 활용한 가이드 분석과 사용자<br />맞춤형 대본 생성 및 분석</p>
             <img src={buttonWhale2} alt="WIS 도움받기" className="ma-button-image" />
             <img src={mobileHelp} alt="WIS 도움받기" className="ma-button-image-mobile" />
           </button>
           <button className="ma-main-button" onClick={handleViewMemories}>
-            <span>WIS와의 추억</span>
+            <span>WIS와의 추억 {!isLoggedIn && '🔒'}</span>
             <p>이전에 작성한 대본들의 효율적인<br />관리 및 검색</p>
             <img src={buttonWhale3} alt="WIS와의 추억" className="ma-button-image" />
             <img src={mobileMemory} alt="WIS와의 추억" className="ma-button-image-mobile" />
