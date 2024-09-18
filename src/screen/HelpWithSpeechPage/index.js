@@ -99,7 +99,7 @@ const HelpWithSpeechPage = ({ showModal }) => {
             <div className="he-keyword-container">
               <input
                 type="text"
-                placeholder="키워드#1"
+                placeholder="키워드#1  (5글자 안으로 적어주세요!)"
                 className="he-input"
                 value={formData.k1}
                 onChange={handleChange}
