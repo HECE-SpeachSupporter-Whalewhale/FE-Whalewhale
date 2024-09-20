@@ -8,6 +8,7 @@ margin: 0;
 background-color: #ffffff;
 box-sizing: border-box;
 overflow: hidden;
+
 }
 
 
@@ -93,6 +94,7 @@ overflow: hidden;
   flex: none;
   order: 1;
   flex-grow: 0;
+  overflow: hidden;
 }
 
 /* Frame 85 */

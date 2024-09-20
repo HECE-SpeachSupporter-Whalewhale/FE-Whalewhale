@@ -68,7 +68,7 @@ const HelpWithSpeechPage = ({ showModal }) => {
           <span className="he-back-button" onClick={() => navigate('/')}>
             &#8592;
           </span>
-          <span className="he-header-title">대본 수정</span>
+          <span className="he-header-title">위스의 도움받기</span>
         </div>
       </div>
       <div className="he-page-content">
