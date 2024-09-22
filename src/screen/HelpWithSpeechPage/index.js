@@ -2,12 +2,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './style.css';
+import { generatePresentation } from '../../services/api';
 
 const HelpWithSpeechPage = ({ showModal }) => {
   const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [minutes, setMinutes] = useState('');
-  const [seconds, setSeconds] = useState('');
+  const [body, setBody] = useState('');
+  const [speed_minute, setSpeedMinute] = useState('');
+  const [speed_second, setSpeedSecond] = useState('');
   const [selectedOption, setSelectedOption] = useState('');
   const [isChecked, setIsChecked] = useState(false);
   const [formData, setFormData] = useState({
@@ -16,23 +17,52 @@ const HelpWithSpeechPage = ({ showModal }) => {
     k3: '',
     k4: ''
   });
+  const [loading, setLoading] = useState(false); // 로딩 상태 추가
   const navigate = useNavigate();
 
-  const handleCreateSpeech = () => {
-    if (title && content) {
-      if (content.length < 150) {
+  const handleCreateSpeech = async () => {
+    if (title && body) {
+      if (body.length < 150) {
         alert('본문은 최소 150자 이상 입력해주세요!');
         return;
       }
-      let estimatedDuration = 0;
-      if (isChecked && minutes && seconds) {
-        estimatedDuration = parseInt(minutes, 10) * 60 + parseInt(seconds, 10);
-      } else {
-        const wordsPerMinute = 100;
-        const wordCount = content.trim().split(/\s+/).length;
-        estimatedDuration = Math.ceil((wordCount / wordsPerMinute) * 60);
+
+      setLoading(true); // 로딩 상태를 true로 설정
+
+      try {
+        // API 요청을 위한 데이터 준비
+        const requestData = {
+          title,
+          body,
+          keyword_name: [formData.k1, formData.k2, formData.k3, formData.k4],
+          speed_minute: isChecked ? parseInt(speed_minute, 10) : 0,
+          speed_second: isChecked ? parseInt(speed_second, 10) : 0,
+          user_job: selectedOption // 사용자의 직업
+        };
+
+        // API 호출
+        const response = await generatePresentation(requestData);
+
+        if (response.status === 200) {
+          const result = response.data;
+          // API 호출이 성공적이라면 GenerationPage로 이동하면서 결과 전달
+          navigate('/generation', {
+            state: {
+              title: result.title,
+              body: result.body,
+              speed_minute: result.speed_minute,
+              speed_second: result.speed_second
+            }
+          });
+        } else {
+          alert('대본 생성에 실패했습니다. 다시 시도해주세요.');
+        }
+      } catch (error) {
+        alert('API 요청 중 오류가 발생했습니다.');
+        console.error('Error generating presentation:', error);
+      } finally {
+        setLoading(false); // 로딩 상태 해제
       }
-      showModal({ title, content, estimatedDuration });
     } else {
       alert('제목과 본문 작성을 완료해주세요!');
     }
@@ -60,7 +90,7 @@ const HelpWithSpeechPage = ({ showModal }) => {
       e.preventDefault();
     }
   };
-  
+
   return (
     <div className="he-page-container">
       <div className="he-header">
@@ -89,8 +119,8 @@ const HelpWithSpeechPage = ({ showModal }) => {
             <textarea
               placeholder="본문을 작성해 주세요.(150~1000자)"
               className="he-textarea"
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
+              value={body}
+              onChange={(e) => setBody(e.target.value)}
               maxLength={1000}
             />
           </div>
@@ -139,9 +169,9 @@ const HelpWithSpeechPage = ({ showModal }) => {
             <label className="he-label">사용자 유형</label>
             <select className="he-select" value={selectedOption} onChange={handle}>
               <option value="" disabled>사용자 유형을 선택해 주세요</option>
-              <option value="option1">학생</option>
-              <option value="option2">직장인</option>
-              <option value="option3">그외..</option>
+              <option value="학생">학생</option>
+              <option value="직장인">직장인</option>
+              <option value="그외..">그외..</option>
             </select>
           </div>
           <div className="he-input-group">
@@ -160,8 +190,8 @@ const HelpWithSpeechPage = ({ showModal }) => {
                   type="number"
                   placeholder="예시) 1"
                   className="he-time-input"
-                  value={minutes}
-                  onChange={(e) => setMinutes(e.target.value)}
+                  value={speed_minute}
+                  onChange={(e) => setSpeedMinute(e.target.value)}
                   onKeyDown={handleNumberInput}
                   max={20}
                 />
@@ -170,8 +200,8 @@ const HelpWithSpeechPage = ({ showModal }) => {
                   type="number"
                   placeholder="예시) 30"
                   className="he-time-input"
-                  value={seconds}
-                  onChange={(e) => setSeconds(e.target.value)}
+                  value={speed_second}
+                  onChange={(e) => setSpeedSecond(e.target.value)}
                   onKeyDown={handleNumberInput}
                   max={60}
                 />
@@ -191,6 +221,13 @@ const HelpWithSpeechPage = ({ showModal }) => {
           </button>
         </div>
       </div>
+
+      {/* 로딩 팝업창 */}
+      {loading && (
+        <div className="loading-popup">
+          <div className="loading-content">결과를 생성 중입니다. 잠시만 기다려주세요...</div>
+        </div>
+      )}
     </div>
   );
 };

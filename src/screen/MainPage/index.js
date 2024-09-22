@@ -54,7 +54,7 @@ const MainPage = ({ isLoggedIn, user, logout }) => {
           <img src={loginIcon} alt="로그인" className="ma-login-icon" />
           {isLoggedIn && user ? (
             <span className="ma-user-info">
-              <span className="ma-user-name">{user.nickname} 님</span>
+              <span className="ma-user-name">{user.nickname || user.username} 님</span>
               <span className="ma-logout-text"> | 로그아웃</span>
             </span>
           ) : (

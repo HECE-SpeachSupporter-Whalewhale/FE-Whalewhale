@@ -41,13 +41,17 @@ const LoginPage = ({ onLogin }) => {
     } catch (error) {
       console.error('로그인 실패', error);
       if (error.response) {
-        setError(`로그인 실패: ${error.response.status} - ${error.response.data}`);
+        setError(`로그인 실패: ${error.response.status} - ${error.response.data.message}`);
       } else if (error.request) {
         setError('서버에 연결할 수 없습니다. 네트워크 연결을 확인해주세요.');
       } else {
         setError('로그인 처리 중 오류가 발생했습니다.');
       }
     }
+  };
+
+  const handleGoogleLogin = () => {
+    window.location.href = 'http://localhost:8080/oauth2/authorization/google';
   };
 
   const handleUsernameKeyPress = (event) => {
@@ -102,7 +106,7 @@ const LoginPage = ({ onLogin }) => {
               <a href="/register">회원가입</a> | <a href="/forgot-password">비밀번호 찾기</a>
             </span>
           </div>
-          <button className="log-google-button">구글로 로그인하기</button>
+          <button className="log-google-button" onClick={handleGoogleLogin}>구글로 로그인하기</button>
         </div>
       </div>
     </div>

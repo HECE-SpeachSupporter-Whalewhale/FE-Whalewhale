@@ -6,19 +6,22 @@ const GenerationPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [minutes, setMinutes] = useState('1');
-  const [seconds, setSeconds] = useState('30');
+  const [body, setBody] = useState('');
+  const [speed_minute, setSpeedMinute] = useState('1'); // 기본값을 1로 설정
+  const [speed_second, setSpeedSecond] = useState('30'); // 기본값을 30으로 설정
 
   useEffect(() => {
     if (location.state) {
-      const { title, content, estimatedDuration } = location.state;
-      setTitle(title || '');
-      setContent(content || '');
-      if (estimatedDuration) {
-        setMinutes(Math.floor(estimatedDuration / 60).toString());
-        setSeconds((estimatedDuration % 60).toString());
-      }
+      const { title = '', body = '', estimatedDuration = 90 } = location.state;
+      
+      setTitle(title);
+      setBody(body);
+      
+      // estimatedDuration이 있을 경우 분과 초로 변환하여 상태를 설정
+      const minutes = Math.floor(estimatedDuration / 60).toString();
+      const seconds = (estimatedDuration % 60).toString();
+      setSpeedMinute(minutes);
+      setSpeedSecond(seconds);
     }
   }, [location]);
 
@@ -26,22 +29,24 @@ const GenerationPage = () => {
     navigate('/create', { 
       state: { 
         title, 
-        content, 
-        minutes, 
-        seconds 
+        body, 
+        speed_minute: speed_minute || '1', // 빈 값일 경우 기본값을 설정
+        speed_second: speed_second || '30' // 빈 값일 경우 기본값을 설정
       } 
     });
   };
 
   const handleSave = () => {
     // Convert minutes and seconds to total seconds
-    const totalSeconds = parseInt(minutes) * 60 + parseInt(seconds);
+    const totalMinutes = parseInt(speed_minute, 10) || 0; // 문자열을 안전하게 숫자로 변환
+    const totalSeconds = parseInt(speed_second, 10) || 0; // 문자열을 안전하게 숫자로 변환
+    const totalDuration = totalMinutes * 60 + totalSeconds;
     
     navigate('/practice', {
       state: {
         title,
-        content,
-        estimatedDuration: totalSeconds
+        body,
+        estimatedDuration: totalDuration
       }
     });
   };
@@ -69,8 +74,8 @@ const GenerationPage = () => {
         <div className="generation-input-group">
           <label className="generation-label">발표문을 수정해주세요.</label>
           <textarea 
-            value={content} 
-            onChange={(e) => setContent(e.target.value)} 
+            value={body} 
+            onChange={(e) => setBody(e.target.value)} 
             className="generation-textarea"
           />
         </div>
@@ -80,15 +85,18 @@ const GenerationPage = () => {
             <input 
               type="number" 
               className="generation-time-input" 
-              value={minutes}
-              onChange={(e) => setMinutes(e.target.value)}
+              value={speed_minute}
+              onChange={(e) => setSpeedMinute(e.target.value || '1')} // 빈 값일 경우 1로 설정
+              min="0"
             />
             <span className="generation-time-span">분</span>
             <input 
               type="number" 
               className="generation-time-input" 
-              value={seconds}
-              onChange={(e) => setSeconds(e.target.value)}
+              value={speed_second}
+              onChange={(e) => setSpeedSecond(e.target.value || '30')} // 빈 값일 경우 30으로 설정
+              min="0"
+              max="59" // 초는 0~59 사이로 제한
             />
             <span className="generation-time-span">초</span>
           </div>

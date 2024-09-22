@@ -3,9 +3,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import TutorialPage from '../TutorialPage';
 import './style.css';
 
-const PracticeSpeechPage = () => {
+const PracticeSpeechPage = ({ isLoggedIn, onLogout }) => {
   const location = useLocation();
-  const { title, content, estimatedDuration } = location.state || {};
+  const { title, body, estimatedDuration } = location.state || {};
   const [currentTime, setCurrentTime] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [formattedLines, setFormattedLines] = useState([]);
@@ -15,10 +15,10 @@ const PracticeSpeechPage = () => {
   const timerRef = useRef(null);
   const navigate = useNavigate();
 
-  const formatContent = useCallback((content, duration) => {
-    const sentences = content.match(/[^.!?]+[.!?]+/g) || [];
-    const totalCharacters = content.length;
-    const averageSpeed = 4; // 평균 4글자/초로 가정
+  const formatContent = useCallback((body, duration) => {
+    const sentences = body.match(/[^.!?]+[.!?]+/g) || [];
+    const totalCharacters = body.length;
+    const averageSpeed = 4;
     const estimatedTotalTime = totalCharacters / averageSpeed;
     const timeRatio = duration / estimatedTotalTime;
 
@@ -39,14 +39,14 @@ const PracticeSpeechPage = () => {
   }, []);
 
   useEffect(() => {
-    if (content && estimatedDuration) {
-      const lines = formatContent(content, estimatedDuration);
+    if (body && estimatedDuration) {
+      const lines = formatContent(body, estimatedDuration);
       setFormattedLines(lines);
     } else {
       alert('발표 데이터를 불러오는데 문제가 발생했습니다.');
       navigate('/');
     }
-  }, [content, estimatedDuration, formatContent, navigate]);
+  }, [body, estimatedDuration, formatContent, navigate]);
 
   useEffect(() => {
     if (isPlaying) {
@@ -107,6 +107,14 @@ const PracticeSpeechPage = () => {
     setShowTutorial(!showTutorial);
   };
 
+  const handleLoginLogout = () => {
+    if (isLoggedIn) {
+      onLogout();
+    } else {
+      navigate('/login');
+    }
+  };
+
   return (
     <div className="pr-practice-speech-container">
       <div className="pr-practice-speech-page">
@@ -116,7 +124,6 @@ const PracticeSpeechPage = () => {
           </span>
           <span className="pr-header-title">{title}</span>
           <div className="pr-header-buttons">
-            <button onClick={() => navigate('/login')} className="pr-login-button">로그인</button>
             <button onClick={toggleTutorial} className="pr-help-button">도움말</button>
           </div>
         </div>
