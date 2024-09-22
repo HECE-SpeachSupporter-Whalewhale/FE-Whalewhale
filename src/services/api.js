@@ -18,7 +18,15 @@ api.interceptors.request.use((config) => {
 // 인증 관련
 export const login = async (credentials) => {
   try {
-    const response = await api.post('/login', credentials);
+    const formData = new FormData();
+    formData.append('username', credentials.username);
+    formData.append('password', credentials.password);
+
+    const response = await api.post('/login', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
     console.log('Login response:', response);
     return response;
   } catch (error) {
