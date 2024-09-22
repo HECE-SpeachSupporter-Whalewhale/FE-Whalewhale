@@ -29,7 +29,7 @@ const PasswordResetPage = () => {
       return;
     }
     try {
-      const response = await sendVerificationCode(email);
+      const response = await sendVerificationCode({ email });
       console.log('Server response:', response);
       setMessage(response.data.message || '인증 코드가 전송되었습니다.');
     } catch (error) {
@@ -41,7 +41,7 @@ const PasswordResetPage = () => {
   const handleResetPassword = async () => {
     if (!validateForm()) return;
     try {
-      const response = await resetPassword(email, verificationCode, newPassword);
+      const response = await resetPassword({ email, code: verificationCode, newPassword });
       setMessage(response.data.message || '비밀번호가 성공적으로 재설정되었습니다.');
       setTimeout(() => navigate('/login'), 2000);
     } catch (error) {

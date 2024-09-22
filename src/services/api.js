@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = '/api';
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -15,82 +15,35 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-api.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response && error.response.status === 401) {
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-      window.location.href = '/login';
-    }
-    return Promise.reject(error);
-  }
-);
-
+// 인증 관련
 export const login = async (credentials) => {
   try {
     const response = await api.post('/login', credentials);
-    if (response.data && response.data.token) {
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('user', JSON.stringify({
-        username: response.data.username,
-        nickname: response.data.nickname,
-      }));
-    }
+    console.log('Login response:', response);
     return response;
   } catch (error) {
     console.error('Login error:', error.response || error);
     throw error;
   }
 };
-
 export const register = (userData) => api.post('/users', userData);
-
-export const sendVerificationEmail = (email) => api.post('/email/send', { email });
-
-export const verifyEmail = (email, code) => api.post('/email/verify', { email, code });
-
+export const sendVerificationEmail = (data) => api.post('/email/send', data);
+export const verifyEmail = (data) => api.post('/email/verify', data);
 export const completeProfile = (userData) => api.post('/complete-profile', userData);
+export const sendVerificationCode = (data) => api.post('/password/forgot', data);
+export const resetPassword = (data) => api.post('/password/reset', data);
 
-export const sendVerificationCode = (email) => api.post('/password/forgot', { email });
-
-export const resetPassword = (email, code, newPassword) => 
-  api.post('/password/reset', { email, code, newPassword });
-
+// 프레젠테이션 관련
 export const getPresentations = () => api.get('/search');
-
 export const addPresentation = (presentationData) => api.post('/presentations/add', presentationData);
-
 export const deletePresentation = (id) => api.delete(`/presentations/delete/${id}`);
-
 export const toggleBookmark = (id, isBookmarked) => api.post(`/bookmarks/toggle/${id}`, { isBookmarked });
-
 export const searchPresentations = (searchData) => api.post('/sort/search', searchData);
 
+// GPT 관련
 export const generatePresentation = (data) => api.post('/bot/generate', data);
 
-export const getOAuth2Success = async () => {
-  try {
-    const response = await api.get('/oauth2/success', {
-      headers: {
-        'Accept': 'application/json',
-      },
-    });
-
-    if (response.data) {
-      localStorage.setItem('token', response.data.token || '');
-      localStorage.setItem('user', JSON.stringify({
-        username: response.data.username,
-        nickname: response.data.nickname,
-        user_job: response.data.user_job,
-        isAdmin: response.data.isAdmin,
-      }));
-    }
-    return response;
-  } catch (error) {
-    console.error('OAuth2 success error:', error.response || error);
-    throw error;
-  }
-};
+// OAuth2 관련
+export const getOAuth2Success = () => api.get('/oauth2/success');
 
 export default api;
