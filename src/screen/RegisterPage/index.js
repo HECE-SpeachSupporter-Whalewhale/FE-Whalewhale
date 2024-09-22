@@ -30,12 +30,12 @@ const RegisterPage = () => {
     const email = getValues('username');
     if (email) {
       try {
-        await sendVerificationEmail(email);
+        const response = await sendVerificationEmail({ email });
         setIsVerificationSent(true);
-        alert('인증 코드가 이메일로 전송되었습니다.');
+        alert(response.data.message || '인증 코드가 이메일로 전송되었습니다.');
       } catch (error) {
         console.error('인증 코드 전송 실패:', error);
-        alert('인증 코드 전송에 실패했습니다. 다시 시도해주세요.');
+        alert(error.response?.data?.message || '인증 코드 전송에 실패했습니다. 다시 시도해주세요.');
       }
     } else {
       alert('이메일을 입력해주세요.');
@@ -47,12 +47,12 @@ const RegisterPage = () => {
     const code = getValues('verificationCode');
     if (email && code) {
       try {
-        await verifyEmail(email, code);
-        setIsVerified(true);
-        alert('이메일이 성공적으로 인증되었습니다.');
+        const response = await verifyEmail({ email, code });
+        setIsVerified(response.data.isValid);
+        alert(response.data.message);
       } catch (error) {
         console.error('인증 실패:', error);
-        alert('인증에 실패했습니다. 다시 시도해주세요.');
+        alert(error.response?.data?.message || '인증에 실패했습니다. 다시 시도해주세요.');
       }
     } else {
       alert('이메일과 인증 코드를 입력해주세요.');
@@ -67,15 +67,11 @@ const RegisterPage = () => {
     try {
       const response = await apiRegister(data);
       console.log('회원가입 성공', response);
-      alert(response.data);
+      alert(response.data.message);
       navigate('/login');
     } catch (error) {
       console.error('회원가입 실패', error);
-      if (error.response && error.response.data) {
-        alert(error.response.data);
-      } else {
-        alert('회원가입 중 오류가 발생했습니다. 다시 시도해주세요.');
-      }
+      alert(error.response?.data?.message || '회원가입 중 오류가 발생했습니다. 다시 시도해주세요.');
     }
   };
 

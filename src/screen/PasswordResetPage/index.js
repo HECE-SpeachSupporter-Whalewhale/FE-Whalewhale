@@ -30,22 +30,23 @@ const PasswordResetPage = () => {
     }
     try {
       const response = await sendVerificationCode(email);
-      setMessage(response.data);
+      console.log('Server response:', response);
+      setMessage(response.data.message || '인증 코드가 전송되었습니다.');
     } catch (error) {
-      console.error('인증코드 전송 실패:', error);
-      setErrors({ email: error.response?.data || '인증코드 전송에 실패했습니다.' });
+      console.error('인증코드 전송 실패:', error.response || error);
+      setErrors({ email: error.response?.data?.message || '인증코드 전송에 실패했습니다.' });
     }
   };
 
   const handleResetPassword = async () => {
     if (!validateForm()) return;
     try {
-      const response = await resetPassword({ email, code: verificationCode, newPassword });
-      setMessage(response.data);
+      const response = await resetPassword(email, verificationCode, newPassword);
+      setMessage(response.data.message || '비밀번호가 성공적으로 재설정되었습니다.');
       setTimeout(() => navigate('/login'), 2000);
     } catch (error) {
       console.error('비밀번호 재설정 실패:', error);
-      setErrors({ general: error.response?.data || '비밀번호 재설정에 실패했습니다.' });
+      setErrors({ general: error.response?.data?.message || '비밀번호 재설정에 실패했습니다.' });
     }
   };
 
