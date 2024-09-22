@@ -30,7 +30,7 @@ const RegisterPage = () => {
     const email = getValues('username');
     if (email) {
       try {
-        const response = await sendVerificationEmail({ email });
+        const response = await sendVerificationEmail(email);
         setIsVerificationSent(true);
         alert(response.data.message || '인증 코드가 이메일로 전송되었습니다.');
       } catch (error) {
@@ -47,7 +47,7 @@ const RegisterPage = () => {
     const code = getValues('verificationCode');
     if (email && code) {
       try {
-        const response = await verifyEmail({ email, code });
+        const response = await verifyEmail(email, code);
         setIsVerified(response.data.isValid);
         alert(response.data.message);
       } catch (error) {
