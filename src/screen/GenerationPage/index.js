@@ -12,11 +12,9 @@ const GenerationPage = () => {
 
   useEffect(() => {
     if (location.state) {
-      const { title = '', body = '', estimatedDuration = 90 } = location.state;
-      
+      const { title = '', content = '', estimatedDuration = 90 } = location.state; // 'content'로 변경
       setTitle(title);
-      setBody(body);
-      
+      setBody(content); // 여기서 'body' 대신 'content'로 변경
       // estimatedDuration이 있을 경우 분과 초로 변환하여 상태를 설정
       const minutes = Math.floor(estimatedDuration / 60).toString();
       const seconds = (estimatedDuration % 60).toString();
@@ -24,7 +22,7 @@ const GenerationPage = () => {
       setSpeedSecond(seconds);
     }
   }, [location]);
-
+  
   const handleEdit = () => {
     navigate('/create', { 
       state: { 
