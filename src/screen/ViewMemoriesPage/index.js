@@ -50,7 +50,8 @@ function ViewMemoriesPage() {
 
     bodies: body,
     dates: created_at,
-    bookmarks: is_bookmarked
+    bookmarks: is_bookmarked,
+    index: Array.from(title.keys()) // index 배열 추가
   });
 
   const handleDelete = (index) => {
@@ -192,16 +193,19 @@ const handleKeyPress = (event) => {
   }
 };
 
-
 const handleViewDetailPage = (index) => {
-  navigate('/ViewMemoriesPage_Detail', {
-    state: {
-      title: filteredData.titles[index],
-      body: filteredData.bodies[index],
-      created_at: filteredData.dates[index],
-      index: index
-    }
-  });
+  if (filteredData && index >= 0 && index < filteredData.titles.length) {
+    navigate('/ViewMemoriesPage_Detail', {
+      state: {
+        title: filteredData.titles[index],
+        body: filteredData.bodies[index],
+        created_at: filteredData.dates[index],
+        index: index
+      }
+    });
+  } else {
+    console.error("Invalid index:", index);
+  }
 };
 
 
@@ -271,7 +275,8 @@ const handleViewDetailPage = (index) => {
                      {title}
                     </div> 
                     <div className="vi-Bookmark" onClick={() => toggleBookmark(index)}>
-                      {filteredData.bookmarks.includes(index) ? (
+                      
+                        {filteredData.bookmarks.includes(filteredData.index[index]) ? (
                         <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                           <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="#FFD700"/>
                         </svg>

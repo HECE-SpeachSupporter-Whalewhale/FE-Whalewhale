@@ -48,6 +48,19 @@ export const deletePresentation = (id) => api.delete(`/presentations/delete/${id
 export const toggleBookmark = (id, isBookmarked) => api.post(`/bookmarks/toggle/${id}`, { isBookmarked });
 export const searchPresentations = (searchData) => api.post('/sort/search', searchData);
 
+//프레젠테이션 업데이트 함수
+export const updatePresentation = async (id, presentationData) => {
+  try {
+    const response = await api.put(`/presentations/update/${id}`, presentationData);
+    console.log('Presentation updated:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error updating presentation:', error.response || error);
+    throw error;
+  }
+};
+
+
 // GPT 관련
 export const generatePresentation = (data) => api.post('/bot/generate', data);
 
