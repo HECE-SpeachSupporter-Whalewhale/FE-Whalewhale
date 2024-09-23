@@ -28,13 +28,15 @@ function ViewMemoriesPage_Detail() {
   };
 
   const handleSave = () => {
+    // 수정된 내용을 저장
+    navigate('/view-memories', {
+      state: { updatedTitle: editedTitle, updatedBody: editedBody, index }
+    });
     setIsEditing(false);
   };
 
   const handleDelete = () => {
     if (index !== null) {
-     
-      
       navigate('/view-memories',{state: {deleteIndex:index}}); // 이동 후 페이지 새로고침
     }
   };
@@ -83,11 +85,9 @@ function ViewMemoriesPage_Detail() {
         <div className='vi-created-at' >{created_at}</div>
         
         
-        
-        
+
       </div>
-      
-     
+
     </div>
   );
 }
