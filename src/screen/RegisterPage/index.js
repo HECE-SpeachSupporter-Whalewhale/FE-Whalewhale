@@ -48,8 +48,12 @@ const RegisterPage = () => {
     if (email && code) {
       try {
         const response = await verifyEmail({ email, code });
-        setIsVerified(response.data.isValid);
-        alert(response.data.message);
+        if (response.data.verification === true) {
+          setIsVerified(true);
+          alert('인증이 완료되었습니다.');
+        } else {
+          alert('인증에 실패했습니다. 다시 시도해주세요.');
+        }
       } catch (error) {
         console.error('인증 실패:', error);
         alert(error.response?.data?.message || '인증에 실패했습니다. 다시 시도해주세요.');
@@ -65,13 +69,29 @@ const RegisterPage = () => {
       return;
     }
     try {
+      console.log('Sending registration data:', data);
       const response = await apiRegister(data);
-      console.log('회원가입 성공', response);
-      alert(response.data.message);
-      navigate('/login');
+      console.log('회원가입 성공 응답:', response);
+      if (response.data && response.data.message) {
+        alert(response.data.message);
+        navigate('/login');
+      } else {
+        alert('회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.');
+        navigate('/login');
+      }
     } catch (error) {
-      console.error('회원가입 실패', error);
-      alert(error.response?.data?.message || '회원가입 중 오류가 발생했습니다. 다시 시도해주세요.');
+      console.error('회원가입 실패:', error);
+      if (error.response) {
+        console.error('Error response:', error.response.data);
+        console.error('Error status:', error.response.status);
+        alert(`회원가입 실패: ${error.response.data.message || '알 수 없는 오류가 발생했습니다.'}`);
+      } else if (error.request) {
+        console.error('Error request:', error.request);
+        alert('서버에 연결할 수 없습니다. 네트워크 연결을 확인해주세요.');
+      } else {
+        console.error('Error message:', error.message);
+        alert('회원가입 요청 중 오류가 발생했습니다.');
+      }
     }
   };
 

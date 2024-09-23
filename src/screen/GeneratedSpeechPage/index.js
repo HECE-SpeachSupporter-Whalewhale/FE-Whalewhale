@@ -6,7 +6,7 @@ import whaleGif from '../../images/whale.gif';
 
 const GeneratedSpeechPage = ({ speechData, hideModal }) => {
   const navigate = useNavigate();
-  const { title, body, speed_minute, speed_second, speed_check } = speechData;
+  const { title, body, speed_minute, speed_second, speed_check, estimatedDuration } = speechData;
 
   const handleNavigateToPractice = () => {
     hideModal();
@@ -17,7 +17,7 @@ const GeneratedSpeechPage = ({ speechData, hideModal }) => {
         speed_minute, 
         speed_second, 
         speed_check,
-        estimatedDuration: calculateEstimatedDuration(body, speed_check, speed_minute, speed_second)
+        estimatedDuration
       } 
     });
   };
@@ -31,19 +31,9 @@ const GeneratedSpeechPage = ({ speechData, hideModal }) => {
         speed_minute, 
         speed_second, 
         speed_check,
-        estimatedDuration: calculateEstimatedDuration(body, speed_check, speed_minute, speed_second)
+        estimatedDuration
       } 
     });
-  };
-
-  const calculateEstimatedDuration = (body, speed_check, speed_minute, speed_second) => {
-    if (speed_check && speed_minute && speed_second) {
-      return parseInt(speed_minute, 10) * 60 + parseInt(speed_second, 10);
-    } else {
-      const wordsPerMinute = 100;
-      const wordCount = body.trim().split(/\s+/).length;
-      return Math.ceil((wordCount / wordsPerMinute) * 60);
-    }
   };
 
   return (
