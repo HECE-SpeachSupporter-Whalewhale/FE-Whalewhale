@@ -24,14 +24,15 @@ const LoginPage = ({ onLogin }) => {
     return true;
   };
 
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+    e.preventDefault();
     if (!validateForm()) return;
     try {
       const response = await apiLogin({ username, password });
       console.log('로그인 성공', response);
-      if (response.data && response.data.nickname) {
+      if (response.data && response.data.username) {
         onLogin({
-          nickname: response.data.nickname,
+          nickname: response.data.nickname || response.data.username,
           username: response.data.username
         });
         navigate('/');
@@ -41,7 +42,7 @@ const LoginPage = ({ onLogin }) => {
     } catch (error) {
       console.error('로그인 실패', error);
       if (error.response) {
-        setError(`로그인 실패: ${error.response.status} - ${error.response.data.message}`);
+        setError(`로그인 실패: ${error.response.status} - ${error.response.data.message || '알 수 없는 오류가 발생했습니다.'}`);
       } else if (error.request) {
         setError('서버에 연결할 수 없습니다. 네트워크 연결을 확인해주세요.');
       } else {
@@ -62,7 +63,7 @@ const LoginPage = ({ onLogin }) => {
 
   const handlePasswordKeyPress = (event) => {
     if (event.key === 'Enter') {
-      handleLogin();
+      handleLogin(event);
     }
   };
 
@@ -81,25 +82,27 @@ const LoginPage = ({ onLogin }) => {
       <div className="log-right">
         <div className="log-form-container">
           <h2 className="log-title web-only">로그인</h2>
-          <input
-            type="email"
-            placeholder="사용자 이름(이메일)을 입력해주세요."
-            className="log-input-field"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            onKeyDown={handleUsernameKeyPress}
-          />
-          <input
-            type="password"
-            placeholder="비밀번호를 입력해주세요."
-            className="log-input-field"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            onKeyDown={handlePasswordKeyPress}
-            ref={passwordInputRef}
-          />
-          {error && <div className="log-error-message">{error}</div>}
-          <button className="log-button" onClick={handleLogin}>로그인</button>
+          <form onSubmit={handleLogin}>
+            <input
+              type="email"
+              placeholder="사용자 이름(이메일)을 입력해주세요."
+              className="log-input-field"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              onKeyDown={handleUsernameKeyPress}
+            />
+            <input
+              type="password"
+              placeholder="비밀번호를 입력해주세요."
+              className="log-input-field"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              onKeyDown={handlePasswordKeyPress}
+              ref={passwordInputRef}
+            />
+            {error && <div className="log-error-message">{error}</div>}
+            <button type="submit" className="log-button">로그인</button>
+          </form>
           <div className="log-additional-options">
             <span>계정이 없으신가요?</span>
             <span className="log-auth-links">

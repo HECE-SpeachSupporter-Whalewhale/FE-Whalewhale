@@ -7,39 +7,61 @@ const GenerationPage = () => {
   const location = useLocation();
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
-  const [speed_minute, setSpeedMinute] = useState('1'); // 기본값을 1로 설정
-  const [speed_second, setSpeedSecond] = useState('30'); // 기본값을 30으로 설정
+  const [speed_minute, setSpeedMinute] = useState('1');
+  const [speed_second, setSpeedSecond] = useState('30');
 
+  // 페이지 로드시 location.state에 있는 데이터를 가져와 설정합니다.
   useEffect(() => {
     if (location.state) {
-      const { title = '', content = '', estimatedDuration = 90 } = location.state; // 'content'로 변경
-      setTitle(title);
-      setBody(content); // 여기서 'body' 대신 'content'로 변경
-      // estimatedDuration이 있을 경우 분과 초로 변환하여 상태를 설정
-      const minutes = Math.floor(estimatedDuration / 60).toString();
-      const seconds = (estimatedDuration % 60).toString();
-      setSpeedMinute(minutes);
-      setSpeedSecond(seconds);
+      if (location.state.gptResponse) {
+        const { title, body, speed_minute, speed_second } = location.state.gptResponse;
+        setTitle(title || '');
+        setBody(body || '');
+        setSpeedMinute(speed_minute ? speed_minute.toString() : '1');
+        setSpeedSecond(speed_second ? speed_second.toString() : '30');
+      } else {
+        const { title = '', body = '', speed_minute = '1', speed_second = '30', estimatedDuration } = location.state;
+        setTitle(title);
+        setBody(body);
+        if (estimatedDuration) {
+          setSpeedMinute(Math.floor(estimatedDuration / 60).toString());
+          setSpeedSecond((estimatedDuration % 60).toString());
+        } else {
+          setSpeedMinute(speed_minute.toString());
+          setSpeedSecond(speed_second.toString());
+        }
+      }
     }
   }, [location]);
-  
-  const handleEdit = () => {
-    navigate('/create', { 
-      state: { 
-        title, 
-        body, 
-        speed_minute: speed_minute || '1', // 빈 값일 경우 기본값을 설정
-        speed_second: speed_second || '30' // 빈 값일 경우 기본값을 설정
-      } 
-    });
+
+  // 데이터를 저장하는 함수: 데이터를 로컬 스토리지에 저장하고 ViewMemoriesPage로 이동합니다.
+  const handleSave = () => {
+    const totalMinutes = parseInt(speed_minute, 10) || 0;
+    const totalSeconds = parseInt(speed_second, 10) || 0;
+    const totalDuration = totalMinutes * 60 + totalSeconds;
+
+    // 이전에 저장된 발표문들을 가져옵니다.
+    const savedSpeeches = JSON.parse(localStorage.getItem('speeches')) || [];
+    const newSpeech = {
+      title,
+      body,
+      estimatedDuration: totalDuration,
+      createdAt: new Date().toISOString(), // 저장된 시간을 기록합니다.
+    };
+
+    // 새로운 데이터를 기존 데이터와 함께 로컬 스토리지에 저장합니다.
+    localStorage.setItem('speeches', JSON.stringify([...savedSpeeches, newSpeech]));
+
+    // 저장 후 ViewMemoriesPage로 이동합니다.
+    navigate('/view-memories');
   };
 
-  const handleSave = () => {
-    // Convert minutes and seconds to total seconds
-    const totalMinutes = parseInt(speed_minute, 10) || 0; // 문자열을 안전하게 숫자로 변환
-    const totalSeconds = parseInt(speed_second, 10) || 0; // 문자열을 안전하게 숫자로 변환
+  // 발표 버튼 클릭 시 Practice Page로 이동하는 함수
+  const handlePractice = () => {
+    const totalMinutes = parseInt(speed_minute, 10) || 0;
+    const totalSeconds = parseInt(speed_second, 10) || 0;
     const totalDuration = totalMinutes * 60 + totalSeconds;
-    
+
     navigate('/practice', {
       state: {
         title,
@@ -84,7 +106,7 @@ const GenerationPage = () => {
               type="number" 
               className="generation-time-input" 
               value={speed_minute}
-              onChange={(e) => setSpeedMinute(e.target.value || '1')} // 빈 값일 경우 1로 설정
+              onChange={(e) => setSpeedMinute(e.target.value || '1')}
               min="0"
             />
             <span className="generation-time-span">분</span>
@@ -92,16 +114,16 @@ const GenerationPage = () => {
               type="number" 
               className="generation-time-input" 
               value={speed_second}
-              onChange={(e) => setSpeedSecond(e.target.value || '30')} // 빈 값일 경우 30으로 설정
+              onChange={(e) => setSpeedSecond(e.target.value || '30')}
               min="0"
-              max="59" // 초는 0~59 사이로 제한
+              max="59"
             />
             <span className="generation-time-span">초</span>
           </div>
         </div>
         <div className="generation-button-group">
-          <button className="generation-button" onClick={handleEdit}>수정하기</button>
-          <button className="generation-button" onClick={handleSave}>발표하기</button>
+          <button className="generation-button" onClick={handleSave}>저장하기</button> {/* 저장 버튼 */}
+          <button className="generation-button" onClick={handlePractice}>발표하기</button> {/* 발표 버튼 */}
         </div>
       </div>
     </div>

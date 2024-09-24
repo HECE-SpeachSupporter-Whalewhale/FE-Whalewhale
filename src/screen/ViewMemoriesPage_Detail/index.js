@@ -6,7 +6,11 @@ import axios from 'axios';
 function ViewMemoriesPage_Detail() {
   const location = useLocation();
   const navigate = useNavigate(); // Initialize navigate
+<<<<<<< Updated upstream
   const { title, body, created_at,index } = location.state || { title: 'No Title', body: 'No Content', created_at: 'No Date', index: null};
+=======
+  const { title, body, created_at,index } = location.state || { title: 'No Title', body: 'No Body', created_at: 'No Date' };
+>>>>>>> Stashed changes
 
 
   const [isEditing, setIsEditing] = useState(false);
@@ -19,7 +23,11 @@ function ViewMemoriesPage_Detail() {
 
 
   const handleNavigateToGeneration = () => {
+<<<<<<< Updated upstream
     navigate('/generation', { state: { title: editedTitle, content: editedBody, index:index} });
+=======
+    navigate('/generation', { state: { title: editedTitle, body: editedBody} });
+>>>>>>> Stashed changes
   };
 
   
@@ -27,12 +35,18 @@ function ViewMemoriesPage_Detail() {
     setIsEditing(!isEditing);
   };
 
+<<<<<<< Updated upstream
   const handleSave = async () => {
     if (index === undefined || index === null || index <= 0) {
       console.error('유효하지 않은 index입니다.');
       return;
     }
     console.log('Current index:', index);
+=======
+  const handleSave = () => {
+    setIsEditing(false);
+  };
+>>>>>>> Stashed changes
 
     try {
       const presentationData = {
@@ -66,6 +80,8 @@ function ViewMemoriesPage_Detail() {
   
   const handleDelete = () => {
     if (index !== null) {
+     
+      
       navigate('/view-memories',{state: {deleteIndex:index}}); // 이동 후 페이지 새로고침
     }
   };
@@ -117,10 +133,18 @@ function ViewMemoriesPage_Detail() {
         </div>
         <div className='vi-created-at' >{created_at}</div>
         
+<<<<<<< Updated upstream
+=======
+        
+        
+        
+>>>>>>> Stashed changes
       </div>
-
+      
+     
     </div>
   );
 }
 
 export default ViewMemoriesPage_Detail;
+

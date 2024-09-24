@@ -43,18 +43,20 @@ const HelpWithSpeechPage = ({ showModal }) => {
         // API 호출
         const response = await generatePresentation(requestData);
 
-        if (response.status === 200) {
-          const result = response.data;
-          // API 호출이 성공적이라면 GenerationPage로 이동하면서 결과 전달
-          navigate('/generation', {
-            state: {
-              title: result.title,
-              body: result.body,
-              speed_minute: result.speed_minute,
-              speed_second: result.speed_second
-            }
-          });
-        } else {
+       // HelpWithSpeechPage의 handleCreateSpeech 함수 내부
+if (response.status === 200) {
+  const result = response.data.choices[0].message.content;
+  navigate('/generation', {
+    state: {
+      gptResponse: {
+        title: result.title || title,
+        body: result.body || body,
+        speed_minute: result.speed_minute || speed_minute,
+        speed_second: result.speed_second || speed_second
+      }
+    }
+  });
+}else {
           alert('대본 생성에 실패했습니다. 다시 시도해주세요.');
         }
       } catch (error) {
