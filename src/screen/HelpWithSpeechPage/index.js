@@ -17,7 +17,7 @@ const HelpWithSpeechPage = ({ showModal }) => {
     k3: '',
     k4: ''
   });
-  const [loading, setLoading] = useState(false); // 로딩 상태 추가
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleCreateSpeech = async () => {
@@ -27,43 +27,44 @@ const HelpWithSpeechPage = ({ showModal }) => {
         return;
       }
 
-      setLoading(true); // 로딩 상태를 true로 설정
+      setLoading(true);
 
       try {
-        // API 요청을 위한 데이터 준비
         const requestData = {
           title,
           body,
           keyword_name: [formData.k1, formData.k2, formData.k3, formData.k4],
           speed_minute: isChecked ? parseInt(speed_minute, 10) : 0,
           speed_second: isChecked ? parseInt(speed_second, 10) : 0,
-          user_job: selectedOption // 사용자의 직업
+          user_job: selectedOption
         };
 
-        // API 호출
         const response = await generatePresentation(requestData);
 
-       // HelpWithSpeechPage의 handleCreateSpeech 함수 내부
-if (response.status === 200) {
-  const result = response.data.choices[0].message.content;
-  navigate('/generation', {
-    state: {
-      gptResponse: {
-        title: result.title || title,
-        body: result.body || body,
-        speed_minute: result.speed_minute || speed_minute,
-        speed_second: result.speed_second || speed_second
-      }
-    }
-  });
-}else {
-          alert('대본 생성에 실패했습니다. 다시 시도해주세요.');
+        console.log(response.data);  // 디버깅을 위해 전체 응답 로깅
+
+        if (response.status === 200 && response.data && response.data.choices && response.data.choices[0]) {
+          const generatedContent = response.data.choices[0].message.content;
+          
+          navigate('/generation', {
+            state: {
+              gptResponse: {
+                title: title,
+                body: generatedContent,  // GPT가 생성한 내용을 사용
+                speed_minute: speed_minute,
+                speed_second: speed_second
+              }
+            }
+          });
+        } else {
+          console.error('Unexpected API response:', response);
+          alert('대본 생성에 실패했습니다. 응답 형식이 올바르지 않습니다.');
         }
       } catch (error) {
-        alert('API 요청 중 오류가 발생했습니다.');
         console.error('Error generating presentation:', error);
+        alert('API 요청 중 오류가 발생했습니다: ' + (error.response?.data || error.message));
       } finally {
-        setLoading(false); // 로딩 상태 해제
+        setLoading(false);
       }
     } else {
       alert('제목과 본문 작성을 완료해주세요!');
@@ -224,7 +225,6 @@ if (response.status === 200) {
         </div>
       </div>
 
-      {/* 로딩 팝업창 */}
       {loading && (
         <div className="loading-popup">
           <div className="loading-content">결과를 생성 중입니다. 잠시만 기다려주세요...</div>
