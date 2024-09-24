@@ -6,7 +6,6 @@ const ViewMemoriesPage_Detail = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { title, body, created_at, index } = location.state || { title: 'No Title', body: 'No Body', created_at: 'No Date' };
-
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(title);
   const [editedBody, setEditedBody] = useState(body);
@@ -115,3 +114,4 @@ const ViewMemoriesPage_Detail = () => {
 };
 
 export default ViewMemoriesPage_Detail;
+
