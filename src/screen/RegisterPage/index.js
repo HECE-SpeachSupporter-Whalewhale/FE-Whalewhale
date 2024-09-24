@@ -124,8 +124,9 @@ const RegisterPage = () => {
 
           <select className="register-input-field" {...register('user_job')}>
             <option value="">소속기관을 선택해주세요</option>
-            <option value="기관1">기관1</option>
-            <option value="기관2">기관2</option>
+            <option value="기관1">학교</option>
+            <option value="기관2">회사</option>
+            <option value="기관3">그외</option>
           </select>
           <p className="register-error-message">{errors.user_job?.message}</p>
 
