@@ -52,7 +52,7 @@ const LoginPage = ({ onLogin }) => {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = `${process.env.REACT_APP_API_BASE_URL}/oauth2/authorization/google`;
+    alert('차후 업데이트 예정입니다^^');
   };
 
   const handleUsernameKeyPress = (event) => {
