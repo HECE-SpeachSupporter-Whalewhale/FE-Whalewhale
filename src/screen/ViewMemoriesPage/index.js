@@ -7,19 +7,10 @@ function ViewMemoriesPage() {
 
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredData, setFilteredData] = useState({
-<<<<<<< Updated upstream
-    titles: title,
-
-    bodies: body,
-    dates: created_at,
-    bookmarks: is_bookmarked,
-    index: Array.from(title.keys()) // index 배열 추가
-=======
     titles: [],
     bodies: [],
     dates: [],
     bookmarks: []
->>>>>>> Stashed changes
   });
 
   const [isListVisible, setIsListVisible] = useState(false); // 버튼 목록 가시성 상태
@@ -149,94 +140,6 @@ function ViewMemoriesPage() {
         <div className='vi-Memory-title'>추억 살펴보기</div>
       </div>
 
-<<<<<<< Updated upstream
-      return newBookmarks;
-    });
-  };
-  
-
-
-const handleSearch = (event) => {
-  setSearchTerm(event.target.value);
-};
-
-const performSearch = () => {
-  const searchTermLower = searchTerm.toLowerCase();
-
-  const combined = title.map((title, i) => ({
-    title,
-    body: body[i],
-    date: created_at[i],
-    is_bookmarked: is_bookmarked.includes(i),
-    relevance: (title.toLowerCase().includes(searchTermLower) ? 
-                (title.toLowerCase().indexOf(searchTermLower) + 1) : 0)
-  }));
-
-  const filtered = combined.filter(item =>
-    item.title.toLowerCase().includes(searchTermLower) ||
-    item.body.toLowerCase().includes(searchTermLower)
-  );
-
-  
-  filtered.sort((a, b) => {
-    if (b.relevance !== a.relevance) {
-      return b.relevance - a.relevance;
-    }
-    return new Date(b.date) - new Date(a.date); 
-  });
-
-  setFilteredData({
-    titles: filtered.map(item => item.title),
-    bodies: filtered.map(item => item.body),
-    dates: filtered.map(item => item.date),
-    bookmarks: filtered
-      .filter(item => item.is_bookmarked)
-      .map((_, i) => i) 
-  });
-};
-
-
-const handleKeyPress = (event) => {
-  if (event.key === 'Enter') {
-    performSearch();
-  }
-};
-
-const handleViewDetailPage = (index) => {
-  if (filteredData && index >= 0 && index < filteredData.titles.length) {
-    navigate('/ViewMemoriesPage_Detail', {
-      state: {
-        title: filteredData.titles[index],
-        body: filteredData.bodies[index],
-        created_at: filteredData.dates[index],
-        index: index
-      }
-    });
-  } else {
-    console.error("Invalid index:", index);
-  }
-};
-
-
-  return(
-
-  <div className='vi-ViewMemoriesPage'>
-    <div className='vi-header'>
-      <button className='vi-backbutton' onClick={handleBack}>
-      </button>  
-      <div className='vi-Memory-title'>추억 살펴보기</div>
-    </div>
-
-
-    <div className='vi-main'> 
-      <div className='vi-main-div'>
-        <div className='vi-search'>
-          <div className='vi-search-div'>
-            <input type='text' 
-            className='vi-search-input' 
-            placeholder='검색어를 입력하세요.'  
-            value={searchTerm}
-=======
       <div className='vi-main'>
         <div className='vi-main-div'>
           <div className='vi-search'>
@@ -246,7 +149,6 @@ const handleViewDetailPage = (index) => {
                 className='vi-search-input' 
                 placeholder='검색어를 입력하세요.'
                 value={searchTerm}
->>>>>>> Stashed changes
                 onChange={handleSearch}
                 onKeyDown={handleKeyPress}
               />
@@ -312,66 +214,6 @@ const handleViewDetailPage = (index) => {
             ))}
           </div>
         </div>
-<<<<<<< Updated upstream
-        <div className='vi-list-button'>
-                <button className='vi-sort-button' onClick={toggleList}>
-                  <div className='vi-sort-icon'>
-                    <div className='vi-line1'></div>
-                    <div className='vi-line2'></div>
-                    <div className='vi-line3'></div>
-                  </div>
-                </button>
-                <span className='vi-sort-label'>정렬순</span>
-            
-                {isListVisible && (
-                  <div className='vi-button-list'>
-
-                    {buttons.map((buttonLabel, index) => (
-                      <button
-                        key={index}
-                        className={`vi-button-item ${selectedButton === index ? 'selected' : ''}`}
-                        onClick={() => handleButtonClick(index)}
-                      >
-                        {buttonLabel}
-                        <span className='vi-check-icon'>
-                          <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1 3.33333L5.8 8L13 1" stroke="#3A9BD9"/>
-                          </svg>
-                        </span>
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-      
-            <div className='vi-content-div'>
-              {filteredData.titles.map((title, index) => (
-                <div key={index} className='vi-content'>
-                  <div className='vi-title-div'>
-                    <div className="vi-title" onClick={() => handleViewDetailPage(index)}>
-                     {title}
-                    </div> 
-                    <div className="vi-Bookmark" onClick={() => toggleBookmark(index)}>
-                      
-                        {filteredData.bookmarks.includes(filteredData.index[index]) ? (
-                        <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="#FFD700"/>
-                        </svg>
-                      ) : (
-                        <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" stroke="#D9D9D9" fill="none"/>
-                        </svg>
-                      )}
-                    </div>
-                  
-                  </div>
-                  <div className="vi-content-text" onClick={() => handleViewDetailPage(index)}>{filteredData.bodies[index]}</div>
-                  <div className="vi-date" onClick={() => handleViewDetailPage(index)}>{filteredData.dates[index]}</div>
-                </div>
-              ))}
-            </div>
-=======
->>>>>>> Stashed changes
       </div>
     </div>
   );
