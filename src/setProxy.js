@@ -4,7 +4,7 @@ module.exports = function (app) {
     app.use(
         '/api',
         createProxyMiddleware({
-            target: 'http://localhost:8080',
+            target: 'http://whalewhale-env-1.eba-c3mypkxm.ap-northeast-2.elasticbeanstalk.com/',
             changeOrigin: true,
         })
     );
