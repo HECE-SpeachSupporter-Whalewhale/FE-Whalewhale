@@ -165,6 +165,7 @@
 
   .he-time-inputs {
     flex-wrap: wrap;
+    width: 50px;
   }
 
   .he-time-input {
@@ -204,7 +205,7 @@
   }
 
   .he-time-inputs {
-    gap: 10px;
+    gap: 50px;
   }
 
   .he-time-span {

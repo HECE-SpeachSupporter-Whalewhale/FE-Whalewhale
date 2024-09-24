@@ -24,7 +24,14 @@ const CreateSpeechPage = ({ showModal, isLoggedIn, onLogout }) => {
         const wordCount = body.trim().split(/\s+/).length;
         estimatedDuration = Math.ceil((wordCount / wordsPerMinute) * 60);
       }
-      showModal({ title, body, estimatedDuration });
+      showModal({ 
+        title, 
+        body, 
+        speed_minute: speed_check ? speed_minute : Math.floor(estimatedDuration / 60).toString(),
+        speed_second: speed_check ? speed_second : (estimatedDuration % 60).toString(),
+        speed_check,
+        estimatedDuration 
+      });
     } else {
       alert('제목과 본문 작성을 완료해주세요!');
     }
