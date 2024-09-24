@@ -1,44 +1,76 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './style.css';
 
-function ViewMemoriesPage_Detail() {
+const ViewMemoriesPage_Detail = () => {
   const location = useLocation();
+<<<<<<< HEAD
   const navigate = useNavigate(); // Initialize navigate
   const { title, body, created_at,index } = location.state || { title: 'No Title', body: 'No Body', created_at: 'No Date' };
 
+=======
+  const navigate = useNavigate();
+  const { title, body, created_at, index } = location.state || { title: 'No Title', body: 'No Body', created_at: 'No Date' };
+>>>>>>> main
 
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(title);
   const [editedBody, setEditedBody] = useState(body);
 
-  const handleBack = () => {
-    navigate('/view-memories'); // Use the exact path for ViewMemoriesPage
-  };
+  useEffect(() => {
+    const savedSpeeches = JSON.parse(localStorage.getItem('speeches')) || [];
+    if (index !== undefined && index < savedSpeeches.length) {
+      setEditedTitle(savedSpeeches[index].title);
+      setEditedBody(savedSpeeches[index].body);
+    }
+  }, [index]);
 
+  const handleBack = () => {
+    navigate('/view-memories');
+  };
 
   const handleNavigateToGeneration = () => {
+<<<<<<< HEAD
     navigate('/generation', { state: { title: editedTitle, body: editedBody} });
+=======
+    navigate('/generation', { state: { title: editedTitle, body: editedBody } });
+>>>>>>> main
   };
 
-  
   const handleEditToggle = () => {
     setIsEditing(!isEditing);
   };
 
   const handleSave = () => {
-    setIsEditing(false);
+    const savedSpeeches = JSON.parse(localStorage.getItem('speeches')) || [];
+
+    if (index !== undefined) {
+      savedSpeeches[index] = {
+        title: editedTitle,
+        body: editedBody,
+        createdAt: new Date().toISOString()
+      };
+      localStorage.setItem('speeches', JSON.stringify(savedSpeeches));
+    }
+
+    navigate('/view-memories', { state: { title: editedTitle, body: editedBody, created_at: "2024.09.24" } });
   };
 
   const handleDelete = () => {
-    if (index !== null) {
-     
-      
-      navigate('/view-memories',{state: {deleteIndex:index}}); // 이동 후 페이지 새로고침
+    const savedSpeeches = JSON.parse(localStorage.getItem('speeches')) || [];
+
+    if (index !== undefined && index !== null) {
+      savedSpeeches.splice(index, 1); // Remove the memory
+      localStorage.setItem('speeches', JSON.stringify(savedSpeeches)); // Update local storage
+
+      alert('삭제가 완료되었습니다.');
+      navigate('/view-memories', { state: { deleteIndex: index } }); // Navigate with deleteIndex to refresh list
     }
   };
 
+  
+
+  
   return (
     <div className='vi-ViewDetail'>
       <div className='vi-header'>
@@ -90,7 +122,11 @@ function ViewMemoriesPage_Detail() {
      
     </div>
   );
-}
+};
 
+<<<<<<< HEAD
 export default ViewMemoriesPage_Detail;
 
+=======
+export default ViewMemoriesPage_Detail;
+>>>>>>> main

@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from 'react';
+<<<<<<< HEAD
 import { useNavigate } from 'react-router-dom';
+=======
+import { useNavigate, useLocation } from 'react-router-dom';
+>>>>>>> main
 import './style.css';
 
-function ViewMemoriesPage() {
+const ViewMemoriesPage = () => {
   const navigate = useNavigate();
+<<<<<<< HEAD
+=======
+  const location = useLocation();
+>>>>>>> main
 
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredData, setFilteredData] = useState({
@@ -13,6 +21,7 @@ function ViewMemoriesPage() {
     bookmarks: []
   });
 
+<<<<<<< HEAD
   const [isListVisible, setIsListVisible] = useState(false); // 버튼 목록 가시성 상태
   const [selectedButton, setSelectedButton] = useState(null); // 선택된 버튼 상태
   const buttons = ['날짜순', '이름순', '즐겨찾기']; // 정렬 버튼 목록
@@ -32,6 +41,57 @@ function ViewMemoriesPage() {
     });
   }, []);
 
+=======
+  const [isListVisible, setIsListVisible] = useState(false);
+  const [selectedButton, setSelectedButton] = useState(null);
+  const buttons = ['날짜순', '이름순', '즐겨찾기'];
+
+  useEffect(() => {
+    const loadMemories = () => {
+      const savedSpeeches = JSON.parse(localStorage.getItem('speeches')) || [];
+      const titles = savedSpeeches.map(speech => speech.title);
+      const bodies = savedSpeeches.map(speech => speech.body);
+      const dates = savedSpeeches.map(speech => new Date(speech.createdAt).toLocaleDateString());
+  
+      setFilteredData({
+        titles,
+        bodies,
+        dates,
+        bookmarks: []
+      });
+    };
+  
+    loadMemories();
+  
+    // Check if a memory was edited or deleted in the detail page
+    if (location.state?.title && location.state?.body) {
+      const savedSpeeches = JSON.parse(localStorage.getItem('speeches')) || [];
+      
+      // Update the edited memory in localStorage if an index is passed
+      if (location.state.index !== undefined) {
+        savedSpeeches[location.state.index] = {
+          title: location.state.title,
+          body: location.state.body,
+          createdAt: new Date().toISOString()
+        };
+        localStorage.setItem('speeches', JSON.stringify(savedSpeeches));
+        loadMemories(); // Refresh the list after updating
+      }
+    }
+  
+    // If a memory was deleted, handle deletion
+    const deleteIndex = location.state?.deleteIndex;
+    if (deleteIndex !== undefined) {
+      const savedSpeeches = JSON.parse(localStorage.getItem('speeches')) || [];
+      savedSpeeches.splice(deleteIndex, 1); // Remove the memory
+      localStorage.setItem('speeches', JSON.stringify(savedSpeeches)); // Update local storage
+      loadMemories(); // Reload memories after deletion
+    }
+  
+  }, [location.state]); // Re-run effect when location.state changes
+  
+
+>>>>>>> main
   const toggleBookmark = (index) => {
     setFilteredData(prevData => {
       const updatedBookmarks = prevData.bookmarks.includes(index)
@@ -123,7 +183,12 @@ function ViewMemoriesPage() {
       state: {
         title: filteredData.titles[index],
         body: filteredData.bodies[index],
+<<<<<<< HEAD
         created_at: filteredData.dates[index]
+=======
+        created_at: filteredData.dates[index],
+        index // Pass the index for deletion
+>>>>>>> main
       }
     });
   };
@@ -132,6 +197,10 @@ function ViewMemoriesPage() {
     navigate('/');
   };
 
+<<<<<<< HEAD
+=======
+  
+>>>>>>> main
   return (
     <div className='vi-ViewMemoriesPage'>
       <div className='vi-header'>
@@ -217,6 +286,6 @@ function ViewMemoriesPage() {
       </div>
     </div>
   );
-}
+};
 
 export default ViewMemoriesPage;

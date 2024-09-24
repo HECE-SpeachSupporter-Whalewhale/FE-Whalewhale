@@ -158,7 +158,7 @@ const PracticeSpeechPage = ({ isLoggedIn, onLogout }) => {
             <button className={`pr-play-button ${isPlaying ? 'pr-pause' : 'pr-play'}`} onClick={handlePlayClick}>
               {isPlaying ? '❚❚' : '▶'}
             </button>
-            <button className="pr-control-button" onClick={() => navigate('/')}>
+            <button className="pr-control-button" onClick={() => navigate('/view-memories')}>
               <span className="pr-button-icon">≡</span>
               <span className="pr-button-text">목록</span>
             </button>
